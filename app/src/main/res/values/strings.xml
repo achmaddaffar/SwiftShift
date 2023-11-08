@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SwiftShift</string>
+    <string name="navigation_drawer">Navigation Drawer</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="history">History</string>
+    <string name="profile">Profile</string>
+</resources>
