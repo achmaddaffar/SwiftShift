@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.daffa.swiftshift.presentation.features.onboarding.OnBoardingScreen
+import com.daffa.swiftshift.presentation.features.profile.ProfileScreen
 import com.daffa.swiftshift.presentation.features.splash.SplashScreen
 
 @Composable
@@ -17,7 +18,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.SplashScreen.route,
+        startDestination = Screen.ProfileScreen.route,
         modifier = modifier
     ) {
         composable(Screen.SplashScreen.route) {
@@ -31,6 +32,9 @@ fun Navigation(
         }
         composable(Screen.RegisterScreen.route) {
 
+        }
+        composable(Screen.ProfileScreen.route) {
+            ProfileScreen(navController = navController)
         }
     }
 }
