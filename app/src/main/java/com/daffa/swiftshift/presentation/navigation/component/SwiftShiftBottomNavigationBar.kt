@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.daffa.swiftshift.presentation.navigation.SwiftShiftTopLevelDestination
-import com.daffa.swiftshift.presentation.navigation.TOP_LEVEL_DESTINATION
+import com.daffa.swiftshift.presentation.navigation.util.SwiftShiftTopLevelDestination
+import com.daffa.swiftshift.presentation.navigation.util.TOP_LEVEL_DESTINATION
 
 @Composable
 fun SwiftShiftBottomNavigationBar(

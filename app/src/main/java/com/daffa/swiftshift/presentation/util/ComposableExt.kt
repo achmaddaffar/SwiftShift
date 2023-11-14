@@ -1,7 +1,12 @@
 package com.daffa.swiftshift.presentation.util
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
@@ -19,4 +24,23 @@ fun <T> ObserveAsEvents(flow: Flow<T>, onEvent: (T) -> Unit) {
             }
         }
     }
+}
+
+@Composable
+fun LockScreenOrientation(orientation: Int) {
+    val context = LocalContext.current
+    DisposableEffect(Unit) {
+        val activity = context.findActivity() ?: return@DisposableEffect onDispose { }
+        val originalOrientation = activity.requestedOrientation
+        activity.requestedOrientation = orientation
+        onDispose {
+            activity.requestedOrientation = originalOrientation
+        }
+    }
+}
+
+fun Context.findActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.findActivity()
+    else -> null
 }

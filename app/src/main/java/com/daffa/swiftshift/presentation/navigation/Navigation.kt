@@ -1,22 +1,19 @@
 package com.daffa.swiftshift.presentation.navigation
 
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.window.layout.DisplayFeature
-import com.daffa.swiftshift.presentation.navigation.util.SwiftShiftContentType
-import com.daffa.swiftshift.presentation.navigation.util.SwiftShiftNavigationType
+import com.daffa.swiftshift.presentation.features.onboarding.OnBoardingScreen
+import com.daffa.swiftshift.presentation.features.splash.SplashScreen
 
 @Composable
 fun Navigation(
     navController: NavHostController,
-    contentType: SwiftShiftContentType,
-    displayFeatures: List<DisplayFeature>,
-    navigationType: SwiftShiftNavigationType,
-    modifier: Modifier = Modifier
+    scaffoldState: ScaffoldState,
+    modifier: Modifier = Modifier,
 ) {
     NavHost(
         navController = navController,
@@ -24,6 +21,15 @@ fun Navigation(
         modifier = modifier
     ) {
         composable(Screen.SplashScreen.route) {
+            SplashScreen(navController = navController)
+        }
+        composable(Screen.OnBoardingScreen.route) {
+            OnBoardingScreen(navController = navController)
+        }
+        composable(Screen.LoginScreen.route) {
+
+        }
+        composable(Screen.RegisterScreen.route) {
 
         }
     }

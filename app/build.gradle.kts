@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
-    id("com.google.gms.google-services")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -33,17 +33,20 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+    }
+    kotlin {
+        jvmToolchain(17)
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
         resources {
@@ -73,13 +76,6 @@ dependencies {
 //    val koin_version = "3.4.3"
 //    val koin_android_version = "3.4.3"
 //    val koin_android_compose_version = "3.4.3"
-
-    // Window Manager
-    implementation("androidx.compose.material3:material3-window-size-class")
-    implementation("androidx.window:window:1.1.0")
-
-    // https://mvnrepository.com/artifact/com.google.accompanist/accompanist-adaptive
-    implementation("com.google.accompanist:accompanist-adaptive:0.33.2-alpha")
 
     // Compose dependencies
     implementation("androidx.wear.compose:compose-navigation:1.2.1")

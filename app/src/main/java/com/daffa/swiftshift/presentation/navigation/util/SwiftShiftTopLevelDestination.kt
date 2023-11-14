@@ -1,4 +1,4 @@
-package com.daffa.swiftshift.presentation.navigation
+package com.daffa.swiftshift.presentation.navigation.util
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

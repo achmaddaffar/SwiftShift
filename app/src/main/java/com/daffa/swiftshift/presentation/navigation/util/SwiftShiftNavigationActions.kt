@@ -1,7 +1,8 @@
-package com.daffa.swiftshift.presentation.navigation
+package com.daffa.swiftshift.presentation.navigation.util
 
 import androidx.navigation.NavController
 import com.daffa.swiftshift.R
+import com.daffa.swiftshift.presentation.navigation.Screen
 
 class SwiftShiftNavigationActions(private val navController: NavController) {
 
