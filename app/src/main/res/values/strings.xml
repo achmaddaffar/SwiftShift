@@ -6,4 +6,14 @@
     <string name="history">History</string>
     <string name="profile">Profile</string>
     <string name="app_logo">App Logo</string>
+    <string name="onboarding_1_title">Make easy money</string>
+    <string name="onboarding_1_content_description">onboarding 1 image</string>
+    <string name="onboarding_1_description">We provide a wide variety of \"shifts\"</string>
+    <string name="onboarding_2_title">Get a job that suits you</string>
+    <string name="onboarding_2_content_description">onboarding 2 image</string>
+    <string name="onboarding_2_description">Find a \"shifts\" that fits and suits you</string>
+    <string name="onboarding_3_title">Build your portfolio with SwiftShifts</string>
+    <string name="onboarding_3_content_description">onboarding 3 image</string>
+    <string name="onboarding_3_description">We will help you find the most suitable \"shifts\" for you</string>
+    <string name="horizontal_pager_indicator_label">Horizontal Pager Indicator</string>
 </resources>
