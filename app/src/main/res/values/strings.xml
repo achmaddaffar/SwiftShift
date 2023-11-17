@@ -47,4 +47,12 @@
     <string name="upload_your_photo">Upload your photo</string>
     <string name="i_will_do_it_later">I\'ll do it later</string>
     <string name="tap_here_to_upload">Tap here to upload</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="login_description">Let\'s continue your shift now</string>
+    <string name="register_terms_policy">By proceeding, you agree to our <b><u>Terms of Service, privacy policy</u></b>, and <b><u>cookie policy.</u></b></string>
+    <string name="by_proceeding_you_agree_to_our">"By proceeding, you agree to our "</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="cookie_policy">Cookie Policy</string>
+    <string name="and">and</string>
 </resources>

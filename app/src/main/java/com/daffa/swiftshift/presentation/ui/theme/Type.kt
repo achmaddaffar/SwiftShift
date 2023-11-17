@@ -131,6 +131,12 @@ object Type {
         fontSize = 14.sp
     )
 
+    fun body4Light() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_light)),
+        fontWeight = FontWeight.Light,
+        fontSize = 14.sp
+    )
+
     fun body5Regular() = TextStyle(
         fontFamily = FontFamily(Font(R.font.poppins_regular)),
         fontWeight = FontWeight.Normal,

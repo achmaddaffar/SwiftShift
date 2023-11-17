@@ -23,11 +23,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.daffa.swiftshift.R
 import com.daffa.swiftshift.presentation.features.register.RegisterViewModel
 import com.daffa.swiftshift.presentation.navigation.Screen
+import com.daffa.swiftshift.presentation.ui.theme.HintGray
 import com.daffa.swiftshift.presentation.ui.theme.Primary600
 import com.daffa.swiftshift.presentation.ui.theme.Primary700
 import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
@@ -73,7 +80,7 @@ fun RegisterFourthPage(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.8f),
+                .fillMaxHeight(0.6f),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -99,15 +106,57 @@ fun RegisterFourthPage(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom
         ) {
+            val policyText = buildAnnotatedString {
+                append(stringResource(R.string.by_proceeding_you_agree_to_our))
+                withStyle(
+                    SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = TextDecoration.Underline
+                    )
+                ) {
+                    append(stringResource(R.string.terms_of_service))
+                }
+                append(",")
+                withStyle(
+                    SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = TextDecoration.Underline
+                    )
+                ) {
+                    append(stringResource(R.string.privacy_policy))
+                }
+                append(", ")
+                append(stringResource(R.string.and))
+                append(" ")
+                withStyle(
+                    SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = TextDecoration.Underline
+                    )
+                ) {
+                    append(stringResource(R.string.cookie_policy))
+                }
+                append(".")
+            }
+            Text(
+                text = policyText,
+                style = Type.body5Regular(),
+                textAlign = TextAlign.Justify,
+                color = HintGray,
+                modifier = Modifier.fillMaxWidth(0.8f)
+            )
+            Spacer(modifier = Modifier.height(SpaceSmall))
             OutlinedButton(
                 onClick = {
                     navController.navigate(Screen.LoginScreen.route)
                 },
                 modifier = Modifier
-                    .fillMaxWidth(0.8f),
+                    .fillMaxWidth(0.8f)
+                    .padding(bottom = SpaceLarge),
                 border = BorderStroke(2.dp, Primary700)
             ) {
                 Text(

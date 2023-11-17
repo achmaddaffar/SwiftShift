@@ -80,20 +80,25 @@ fun RegisterScreen(
                 color = Color.Black
             )
         }
-        HorizontalPager(
-            state = pagerState,
-            userScrollEnabled = false
-        ) { index ->
-            when (index) {
-                0 -> RegisterFirstPage(pagerState = pagerState, viewModel = viewModel)
-                1 -> RegisterSecondPage(pagerState = pagerState, viewModel = viewModel)
-                2 -> RegisterThirdPage(pagerState = pagerState, viewModel = viewModel)
-                3 -> RegisterFourthPage(
-                    navController = navController,
-                    pagerState = pagerState,
-                    viewModel = viewModel
-                )
-            }
-        }
+        RegisterFourthPage(
+            navController = navController,
+            pagerState = pagerState,
+            viewModel = viewModel
+        )
+//        HorizontalPager(
+//            state = pagerState,
+//            userScrollEnabled = false
+//        ) { index ->
+//            when (index) {
+//                0 -> RegisterFirstPage(pagerState = pagerState, viewModel = viewModel)
+//                1 -> RegisterSecondPage(pagerState = pagerState, viewModel = viewModel)
+//                2 -> RegisterThirdPage(pagerState = pagerState, viewModel = viewModel)
+//                3 -> RegisterFourthPage(
+//                    navController = navController,
+//                    pagerState = pagerState,
+//                    viewModel = viewModel
+//                )
+//            }
+//        }
     }
 }

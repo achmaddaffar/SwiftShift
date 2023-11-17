@@ -69,6 +69,18 @@ class RegisterViewModel @Inject constructor(
             RegisterEvent.RegisterWithoutProfilePicture -> {
 
             }
+
+            RegisterEvent.TogglePasswordVisibility -> {
+                _passwordState.value = passwordState.value.copy(
+                    isPasswordVisible = !passwordState.value.isPasswordVisible
+                )
+            }
+
+            RegisterEvent.ToggleConfirmPasswordVisibility -> {
+                _confirmPasswordState.value = confirmPasswordState.value.copy(
+                    isPasswordVisible = !confirmPasswordState.value.isPasswordVisible
+                )
+            }
         }
     }
 
@@ -103,7 +115,8 @@ class RegisterViewModel @Inject constructor(
                 _confirmPasswordState.value = confirmPasswordState.value.copy(error = null)
 
                 val passwordError = ValidationUtil.validatePassword(passwordState.value.text)
-                val confirmPasswordError = ValidationUtil.validatePassword(confirmPasswordState.value.text)
+                val confirmPasswordError =
+                    ValidationUtil.validatePassword(confirmPasswordState.value.text)
                 if (passwordError != null) {
                     _passwordState.value = passwordState.value.copy(
                         error = passwordError

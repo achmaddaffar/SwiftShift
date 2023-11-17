@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.daffa.swiftshift.R
 import com.daffa.swiftshift.presentation.component.SwiftShiftTextField
@@ -100,6 +101,11 @@ fun RegisterThirdPage(
                 },
                 hint = stringResource(R.string.enter_your_password),
                 label = stringResource(R.string.enter_your_new_password),
+                keyboardType = KeyboardType.Password,
+                showPasswordToggle = passwordState.isPasswordVisible,
+                onPasswordToggleClick = {
+                    viewModel.onEvent(RegisterEvent.TogglePasswordVisibility)
+                }
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             SwiftShiftTextField(
@@ -128,6 +134,11 @@ fun RegisterThirdPage(
                 },
                 hint = stringResource(R.string.confirm_your_password),
                 label = stringResource(R.string.confirm_your_new_password),
+                keyboardType = KeyboardType.Password,
+                showPasswordToggle = confirmPasswordState.isPasswordVisible,
+                onPasswordToggleClick = {
+                    viewModel.onEvent(RegisterEvent.ToggleConfirmPasswordVisibility)
+                }
             )
         }
         Column(
