@@ -92,6 +92,12 @@ object Type {
         fontSize = 22.sp
     )
 
+    fun body2Bold() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_bold)),
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
+    )
+
     fun body3Regular() = TextStyle(
         fontFamily = FontFamily(Font(R.font.poppins_regular)),
         fontWeight = FontWeight.Normal,
@@ -102,6 +108,13 @@ object Type {
     fun body3Light() = TextStyle(
         fontFamily = FontFamily(Font(R.font.poppins_light)),
         fontWeight = FontWeight.Light,
+        fontSize = 16.sp,
+        color = Color.Black
+    )
+
+    fun body3Medium() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_medium)),
+        fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         color = Color.Black
     )
@@ -159,6 +172,13 @@ object Type {
     fun heading4SemiBold() = TextStyle(
         fontFamily = FontFamily(Font(R.font.poppins_semibold)),
         fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp,
+        color = Color.Black
+    )
+
+    fun heading4Bold() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_bold)),
+        fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
         color = Color.Black
     )

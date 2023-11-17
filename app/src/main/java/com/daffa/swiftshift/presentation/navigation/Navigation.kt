@@ -6,7 +6,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.daffa.swiftshift.presentation.features.login.LoginScreen
 import com.daffa.swiftshift.presentation.features.onboarding.OnBoardingScreen
+import com.daffa.swiftshift.presentation.features.register.RegisterScreen
 import com.daffa.swiftshift.presentation.features.splash.SplashScreen
 
 @Composable
@@ -17,7 +19,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.SplashScreen.route,
+        startDestination = Screen.RegisterScreen.route,
         modifier = modifier
     ) {
         composable(Screen.SplashScreen.route) {
@@ -27,10 +29,10 @@ fun Navigation(
             OnBoardingScreen(navController = navController)
         }
         composable(Screen.LoginScreen.route) {
-
+            LoginScreen(navController = navController)
         }
         composable(Screen.RegisterScreen.route) {
-
+            RegisterScreen(navController = navController)
         }
     }
 }

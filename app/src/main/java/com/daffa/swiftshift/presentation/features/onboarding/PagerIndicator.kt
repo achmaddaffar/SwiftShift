@@ -27,7 +27,6 @@ fun PagerIndicator(
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.padding(top = 20.dp)
     ) {
         repeat(item.size) {
             Indicator(
