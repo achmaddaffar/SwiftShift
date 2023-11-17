@@ -175,6 +175,12 @@ object Type {
         fontSize = 28.sp
     )
 
+    fun heading4Medium() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_medium)),
+        fontWeight = FontWeight.Medium,
+        fontSize = 24.sp
+    )
+
     fun heading4SemiBold() = TextStyle(
         fontFamily = FontFamily(Font(R.font.poppins_semibold)),
         fontWeight = FontWeight.SemiBold,

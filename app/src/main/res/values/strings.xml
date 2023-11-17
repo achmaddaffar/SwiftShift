@@ -55,4 +55,8 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="cookie_policy">Cookie Policy</string>
     <string name="and">and</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_any_account">"Don't have any account? "</string>
+    <string name="register">Register</string>
 </resources>

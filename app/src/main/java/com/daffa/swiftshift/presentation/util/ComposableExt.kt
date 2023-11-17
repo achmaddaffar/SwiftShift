@@ -44,22 +44,6 @@ fun LockScreenOrientation(orientation: Int) {
     }
 }
 
-@Composable
-fun StyledText(
-    text: CharSequence,
-    modifier: Modifier = Modifier,
-) {
-    AndroidView(
-        modifier = modifier,
-        factory = { context -> TextView(context) },
-        update = { it.text = text }
-    )
-}
-
-@Composable
-@ReadOnlyComposable
-fun textResource(@StringRes id: Int): CharSequence = LocalContext.current.resources.getText(id)
-
 fun Context.findActivity(): Activity? = when (this) {
     is Activity -> this
     is ContextWrapper -> baseContext.findActivity()

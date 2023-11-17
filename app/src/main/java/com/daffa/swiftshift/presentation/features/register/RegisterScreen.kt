@@ -22,8 +22,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import com.daffa.swiftshift.R
 import com.daffa.swiftshift.presentation.features.register.component.RegisterFirstPage
 import com.daffa.swiftshift.presentation.features.register.component.RegisterFourthPage
@@ -52,7 +52,9 @@ fun RegisterScreen(
             .fillMaxSize()
     ) {
         Row(
-            modifier = Modifier.padding(SpaceSmall),
+            modifier = Modifier
+                .padding(SpaceSmall)
+                .padding(start = SpaceMedium),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
@@ -64,13 +66,13 @@ fun RegisterScreen(
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(pagerState.currentPage - 1)
                         }
-                }
+                },
+                modifier = Modifier.size(IconSizeMedium)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.icon_back),
                     contentDescription = stringResource(R.string.back_button),
                     tint = Color.Black,
-                    modifier = Modifier.size(IconSizeMedium)
                 )
             }
             Spacer(modifier = Modifier.width(SpaceMedium))
@@ -80,25 +82,20 @@ fun RegisterScreen(
                 color = Color.Black
             )
         }
-        RegisterFourthPage(
-            navController = navController,
-            pagerState = pagerState,
-            viewModel = viewModel
-        )
-//        HorizontalPager(
-//            state = pagerState,
-//            userScrollEnabled = false
-//        ) { index ->
-//            when (index) {
-//                0 -> RegisterFirstPage(pagerState = pagerState, viewModel = viewModel)
-//                1 -> RegisterSecondPage(pagerState = pagerState, viewModel = viewModel)
-//                2 -> RegisterThirdPage(pagerState = pagerState, viewModel = viewModel)
-//                3 -> RegisterFourthPage(
-//                    navController = navController,
-//                    pagerState = pagerState,
-//                    viewModel = viewModel
-//                )
-//            }
-//        }
+        HorizontalPager(
+            state = pagerState,
+            userScrollEnabled = false
+        ) { index ->
+            when (index) {
+                0 -> RegisterFirstPage(pagerState = pagerState, viewModel = viewModel)
+                1 -> RegisterSecondPage(pagerState = pagerState, viewModel = viewModel)
+                2 -> RegisterThirdPage(pagerState = pagerState, viewModel = viewModel)
+                3 -> RegisterFourthPage(
+                    navController = navController,
+                    pagerState = pagerState,
+                    viewModel = viewModel
+                )
+            }
+        }
     }
 }
