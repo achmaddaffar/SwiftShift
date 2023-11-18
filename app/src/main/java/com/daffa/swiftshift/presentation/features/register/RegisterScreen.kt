@@ -45,7 +45,7 @@ fun RegisterScreen(
 ) {
     LockScreenOrientation(orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
-    val pagerState = rememberPagerState { 4 }
+    val pagerState = rememberPagerState { 5 }
     val coroutineScope = rememberCoroutineScope()
 
     Column(

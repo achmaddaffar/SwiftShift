@@ -109,7 +109,7 @@ class RegisterViewModel @Inject constructor(
 
     private fun proceedNextScreen(destinationIndex: Int) {
         when (destinationIndex) {
-            1 -> {
+            2 -> {
                 _emailState.value = emailState.value.copy(error = null)
 
                 val emailError = ValidationUtil.validateEmail(emailState.value.text)
@@ -121,7 +121,7 @@ class RegisterViewModel @Inject constructor(
                 }
             }
 
-            2 -> {
+            3 -> {
                 _fullNameState.value = fullNameState.value.copy(error = null)
 
                 val fullNameError = ValidationUtil.validateFullName(fullNameState.value.text)
@@ -133,7 +133,7 @@ class RegisterViewModel @Inject constructor(
                 }
             }
 
-            3 -> {
+            4 -> {
                 _passwordState.value = passwordState.value.copy(error = null)
                 _confirmPasswordState.value = confirmPasswordState.value.copy(error = null)
 
