@@ -1,4 +1,4 @@
-package com.daffa.swiftshift.presentation.features.register.component
+package com.daffa.swiftshift.presentation.features.register.page
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -12,9 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,24 +22,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.daffa.swiftshift.R
-import com.daffa.swiftshift.presentation.component.SwiftShiftTextField
 import com.daffa.swiftshift.presentation.features.register.RegisterEvent
 import com.daffa.swiftshift.presentation.features.register.RegisterViewModel
+import com.daffa.swiftshift.presentation.features.register.component.RoleSelectionList
 import com.daffa.swiftshift.presentation.ui.theme.Primary600
+import com.daffa.swiftshift.presentation.ui.theme.Slate300
 import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
-import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
-import com.daffa.swiftshift.util.Constants.Empty
-import com.daffa.swiftshift.util.error.AuthError
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RegisterSecondPage(
+fun RegisterFirstScreen(
     pagerState: PagerState,
     viewModel: RegisterViewModel,
 ) {
-    val fullNameState by viewModel.fullNameState
     val coroutineScope = rememberCoroutineScope()
 
     Column(
@@ -62,13 +59,8 @@ fun RegisterSecondPage(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = stringResource(R.string.what_is_your_name),
+                text = stringResource(R.string.you_want_to_register_as),
                 style = Type.heading4Bold()
-            )
-            Spacer(modifier = Modifier.height(SpaceSmall))
-            Text(
-                text = stringResource(R.string.second_register_description),
-                style = Type.body4Regular()
             )
         }
         Column(
@@ -77,20 +69,13 @@ fun RegisterSecondPage(
                 .fillMaxHeight(0.8f),
             verticalArrangement = Arrangement.Top
         ) {
-            SwiftShiftTextField(
-                text = fullNameState.text,
-                onValueChange = {
-                    viewModel.onEvent(RegisterEvent.EnteredFullName(it))
+            // Content
+            RoleSelectionList(
+                options = viewModel.options,
+                onOptionClicked = {
+                    viewModel.onEvent(RegisterEvent.SelectedRole(it))
                 },
-                error = when (fullNameState.error) {
-                    is AuthError.FieldEmpty -> {
-                        stringResource(R.string.this_field_cannot_be_empty)
-                    }
-
-                    else -> String.Empty
-                },
-                label = stringResource(R.string.full_name),
-                hint = stringResource(R.string.hint_full_name)
+                modifier = Modifier.fillMaxWidth()
             )
         }
         Column(
@@ -101,12 +86,12 @@ fun RegisterSecondPage(
         ) {
             Button(
                 onClick = {
-                    viewModel.onEvent(RegisterEvent.ProceedNextScreen(pagerState.currentPage + 1))
-                    if (fullNameState.error == null)
-                        coroutineScope.launch {
-                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                        }
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                    }
                 },
+                enabled = viewModel.isRoleSelected(),
+                colors = ButtonDefaults.buttonColors(disabledContainerColor = Slate300),
                 modifier = Modifier.fillMaxWidth(0.8f)
             ) {
                 Text(

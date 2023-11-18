@@ -1,4 +1,4 @@
-package com.daffa.swiftshift.presentation.features.register.component
+package com.daffa.swiftshift.presentation.features.register.page
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -27,6 +27,7 @@ import com.daffa.swiftshift.presentation.features.register.RegisterEvent
 import com.daffa.swiftshift.presentation.features.register.RegisterViewModel
 import com.daffa.swiftshift.presentation.ui.theme.Primary600
 import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
+import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
 import com.daffa.swiftshift.util.Constants.Empty
 import com.daffa.swiftshift.util.error.AuthError
@@ -34,11 +35,11 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RegisterFirstPage(
+fun RegisterThirdPage(
     pagerState: PagerState,
     viewModel: RegisterViewModel,
 ) {
-    val emailState by viewModel.emailState
+    val fullNameState by viewModel.fullNameState
     val coroutineScope = rememberCoroutineScope()
 
     Column(
@@ -61,8 +62,13 @@ fun RegisterFirstPage(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = stringResource(R.string.enter_your_email),
+                text = stringResource(R.string.what_is_your_name),
                 style = Type.heading4Bold()
+            )
+            Spacer(modifier = Modifier.height(SpaceSmall))
+            Text(
+                text = stringResource(R.string.second_register_description),
+                style = Type.body4Regular()
             )
         }
         Column(
@@ -72,23 +78,19 @@ fun RegisterFirstPage(
             verticalArrangement = Arrangement.Top
         ) {
             SwiftShiftTextField(
-                text = emailState.text,
+                text = fullNameState.text,
                 onValueChange = {
-                    viewModel.onEvent(RegisterEvent.EnteredEmailAddress(it))
+                    viewModel.onEvent(RegisterEvent.EnteredFullName(it))
                 },
-                error = when (emailState.error) {
+                error = when (fullNameState.error) {
                     is AuthError.FieldEmpty -> {
                         stringResource(R.string.this_field_cannot_be_empty)
                     }
 
-                    is AuthError.InvalidEmail -> {
-                        stringResource(R.string.error_invalid_email)
-                    }
-
                     else -> String.Empty
                 },
-                label = stringResource(R.string.email_address),
-                hint = stringResource(R.string.hint_email_address),
+                label = stringResource(R.string.full_name),
+                hint = stringResource(R.string.hint_full_name)
             )
         }
         Column(
@@ -100,7 +102,7 @@ fun RegisterFirstPage(
             Button(
                 onClick = {
                     viewModel.onEvent(RegisterEvent.ProceedNextScreen(pagerState.currentPage + 1))
-                    if (emailState.error == null)
+                    if (fullNameState.error == null)
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(pagerState.currentPage + 1)
                         }

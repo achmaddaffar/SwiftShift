@@ -1,7 +1,6 @@
 package com.daffa.swiftshift.presentation.navigation.component
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar

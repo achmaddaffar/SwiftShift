@@ -1,4 +1,4 @@
-package com.daffa.swiftshift.presentation.features.register.component
+package com.daffa.swiftshift.presentation.features.register.page
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RegisterThirdPage(
+fun RegisterFourthPage(
     pagerState: PagerState,
     viewModel: RegisterViewModel,
 ) {

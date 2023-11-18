@@ -1,4 +1,4 @@
-package com.daffa.swiftshift.presentation.features.register.component
+package com.daffa.swiftshift.presentation.features.register.page
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -43,7 +43,7 @@ import com.daffa.swiftshift.presentation.ui.theme.Type
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RegisterFourthPage(
+fun RegisterFifthPage(
     navController: NavController,
     pagerState: PagerState,
     viewModel: RegisterViewModel,

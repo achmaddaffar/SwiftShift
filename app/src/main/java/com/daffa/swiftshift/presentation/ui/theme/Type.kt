@@ -119,6 +119,13 @@ object Type {
         color = Color.Black
     )
 
+    fun body3Bold() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_bold)),
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        color = Color.Black
+    )
+
     fun body4Regular() = TextStyle(
         fontFamily = FontFamily(Font(R.font.poppins_regular)),
         fontWeight = FontWeight.Normal,

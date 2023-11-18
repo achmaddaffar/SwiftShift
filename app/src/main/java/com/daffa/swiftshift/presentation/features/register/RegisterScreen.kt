@@ -25,10 +25,11 @@ import androidx.navigation.NavController
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import com.daffa.swiftshift.R
-import com.daffa.swiftshift.presentation.features.register.component.RegisterFirstPage
-import com.daffa.swiftshift.presentation.features.register.component.RegisterFourthPage
-import com.daffa.swiftshift.presentation.features.register.component.RegisterSecondPage
-import com.daffa.swiftshift.presentation.features.register.component.RegisterThirdPage
+import com.daffa.swiftshift.presentation.features.register.page.RegisterSecondPage
+import com.daffa.swiftshift.presentation.features.register.page.RegisterFifthPage
+import com.daffa.swiftshift.presentation.features.register.page.RegisterFirstScreen
+import com.daffa.swiftshift.presentation.features.register.page.RegisterThirdPage
+import com.daffa.swiftshift.presentation.features.register.page.RegisterFourthPage
 import com.daffa.swiftshift.presentation.ui.theme.IconSizeMedium
 import com.daffa.swiftshift.presentation.ui.theme.SpaceMedium
 import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
@@ -87,10 +88,11 @@ fun RegisterScreen(
             userScrollEnabled = false
         ) { index ->
             when (index) {
-                0 -> RegisterFirstPage(pagerState = pagerState, viewModel = viewModel)
+                0 -> RegisterFirstScreen(pagerState = pagerState, viewModel = viewModel)
                 1 -> RegisterSecondPage(pagerState = pagerState, viewModel = viewModel)
                 2 -> RegisterThirdPage(pagerState = pagerState, viewModel = viewModel)
-                3 -> RegisterFourthPage(
+                3 -> RegisterFourthPage(pagerState = pagerState, viewModel = viewModel)
+                4 -> RegisterFifthPage(
                     navController = navController,
                     pagerState = pagerState,
                     viewModel = viewModel

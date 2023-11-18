@@ -2,10 +2,13 @@ package com.daffa.swiftshift.presentation.features.register
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.daffa.swiftshift.domain.util.ValidationUtil
 import com.daffa.swiftshift.presentation.util.state.BaseTextFieldState
 import com.daffa.swiftshift.presentation.util.state.PasswordTextFieldState
+import com.daffa.swiftshift.presentation.util.state.SelectionOption
+import com.daffa.swiftshift.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -25,6 +28,13 @@ class RegisterViewModel @Inject constructor(
 
     private val _confirmPasswordState = mutableStateOf(PasswordTextFieldState())
     val confirmPasswordState: State<PasswordTextFieldState> = _confirmPasswordState
+
+    private val _options = listOf(
+        SelectionOption(Constants.GIG_WORKER, false),
+        SelectionOption(Constants.GIG_PROVIDER, false)
+    ).toMutableStateList()
+    val options: List<SelectionOption<String>>
+        get() = _options
 
     fun onEvent(event: RegisterEvent) {
         when (event) {
@@ -81,7 +91,20 @@ class RegisterViewModel @Inject constructor(
                     isPasswordVisible = !confirmPasswordState.value.isPasswordVisible
                 )
             }
+
+            is RegisterEvent.SelectedRole -> {
+                _options.forEach { it.selected = false }
+                _options.find { it.option == event.selectionOption.option }?.selected = true
+            }
         }
+    }
+
+    fun isRoleSelected(): Boolean {
+        _options.forEach {
+            if (it.selected)
+                return true
+        }
+        return false
     }
 
     private fun proceedNextScreen(destinationIndex: Int) {
