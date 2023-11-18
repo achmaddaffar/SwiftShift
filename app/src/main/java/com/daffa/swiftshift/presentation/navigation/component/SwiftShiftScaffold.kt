@@ -1,8 +1,8 @@
 package com.daffa.swiftshift.presentation.navigation.component
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.Scaffold
@@ -10,7 +10,7 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import androidx.compose.ui.unit.dp
 import com.daffa.swiftshift.presentation.navigation.util.SwiftShiftNavigationActions
 import com.daffa.swiftshift.presentation.navigation.util.SwiftShiftTopLevelDestination
 import com.daffa.swiftshift.presentation.navigation.util.TOP_LEVEL_DESTINATION
@@ -21,12 +21,7 @@ fun SwiftShiftScaffold(
     modifier: Modifier = Modifier,
     showBottomBar: Boolean = true,
     state: ScaffoldState,
-    showToolbar: Boolean = true,
-    toolbarTitle: String? = null,
-    showBackArrow: Boolean = false,
-    navActions: @Composable RowScope.() -> Unit = {},
     bottomNavItem: List<SwiftShiftTopLevelDestination> = TOP_LEVEL_DESTINATION,
-    onFabClick: () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
@@ -34,7 +29,9 @@ fun SwiftShiftScaffold(
             if (showBottomBar)
                 BottomAppBar(
                     modifier = Modifier.fillMaxWidth(),
-                    backgroundColor = MaterialTheme.colorScheme.surface
+                    backgroundColor = MaterialTheme.colorScheme.surface,
+                    cutoutShape = CircleShape,
+                    elevation = 6.dp
                 ) {
                     BottomNavigation(
                         modifier = Modifier.fillMaxWidth()
@@ -43,6 +40,7 @@ fun SwiftShiftScaffold(
                             SwiftShiftBottomNavItem(
                                 selectedIconId = bottomNavItem.selectedIconId,
                                 unselectedIconId = bottomNavItem.unselectedIconId,
+                                selected = bottomNavItem.route == navigationActions.getNavController().currentDestination?.route,
                                 onClick = {
                                     navigationActions.navigateTo(bottomNavItem)
                                 }

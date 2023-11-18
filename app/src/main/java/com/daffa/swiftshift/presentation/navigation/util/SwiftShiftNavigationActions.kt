@@ -16,6 +16,8 @@ class SwiftShiftNavigationActions(private val navController: NavController) {
             restoreState = true
         }
     }
+
+    fun getNavController() = navController
 }
 
 val TOP_LEVEL_DESTINATION = listOf(
