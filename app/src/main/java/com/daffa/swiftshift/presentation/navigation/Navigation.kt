@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.daffa.swiftshift.presentation.features.history.HistoryScreen
 import com.daffa.swiftshift.presentation.features.home.HomeScreen
 import com.daffa.swiftshift.presentation.features.login.LoginScreen
 import com.daffa.swiftshift.presentation.features.onboarding.OnBoardingScreen
@@ -45,6 +46,9 @@ fun Navigation(
         }
         composable(Screen.SearchScreen.route) {
             SearchScreen(navController = navController)
+        }
+        composable(Screen.HistoryScreen.route) {
+            HistoryScreen(navController = navController)
         }
     }
 }
