@@ -11,6 +11,7 @@ import com.daffa.swiftshift.presentation.features.login.LoginScreen
 import com.daffa.swiftshift.presentation.features.onboarding.OnBoardingScreen
 import com.daffa.swiftshift.presentation.features.profile.ProfileScreen
 import com.daffa.swiftshift.presentation.features.register.RegisterScreen
+import com.daffa.swiftshift.presentation.features.search.SearchScreen
 import com.daffa.swiftshift.presentation.features.splash.SplashScreen
 
 @Composable
@@ -41,6 +42,9 @@ fun Navigation(
         }
         composable(Screen.ProfileScreen.route) {
             ProfileScreen(navController = navController)
+        }
+        composable(Screen.SearchScreen.route) {
+            SearchScreen(navController = navController)
         }
     }
 }

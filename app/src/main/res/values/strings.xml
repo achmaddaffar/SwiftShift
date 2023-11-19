@@ -75,4 +75,5 @@
     <string name="gig_image">Gig Image</string>
     <string name="gig_location">Gig location</string>
     <string name="nearby_gigs">Nearby Gigs</string>
+    <string name="search_icon">Search icon</string>
 </resources>
