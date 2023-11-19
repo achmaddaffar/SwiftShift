@@ -64,4 +64,15 @@
     <string name="gig_provider">Gig Provider</string>
     <string name="gig_provider_role">Gig Provider Role</string>
     <string name="you_want_to_register_as">You want to register as?</string>
+    <string name="welcome">Welcome</string>
+    <string name="location_pin">Location pin</string>
+    <string name="your_current_location_is">Your current location is</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="advertisement_image">Advertisement Image</string>
+    <string name="recommended_gigs">Recommended Gigs</string>
+    <string name="see_all">See All</string>
+    <string name="duration_from_posted">Duration from posted</string>
+    <string name="gig_image">Gig Image</string>
+    <string name="gig_location">Gig location</string>
+    <string name="nearby_gigs">Nearby Gigs</string>
 </resources>

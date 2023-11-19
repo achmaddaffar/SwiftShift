@@ -1,7 +1,9 @@
 package com.daffa.swiftshift.presentation.navigation.component
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigation
@@ -31,7 +33,7 @@ fun SwiftShiftScaffold(
                     modifier = Modifier.fillMaxWidth(),
                     backgroundColor = MaterialTheme.colorScheme.surface,
                     cutoutShape = CircleShape,
-                    elevation = 6.dp
+                    elevation = 0.dp
                 ) {
                     BottomNavigation(
                         modifier = Modifier.fillMaxWidth()
@@ -52,6 +54,8 @@ fun SwiftShiftScaffold(
         scaffoldState = state,
         modifier = modifier
     ) {
-        content(it)
+        Box(modifier = Modifier.padding(PaddingValues(bottom = it.calculateBottomPadding()))) {
+            content(it)
+        }
     }
 }
