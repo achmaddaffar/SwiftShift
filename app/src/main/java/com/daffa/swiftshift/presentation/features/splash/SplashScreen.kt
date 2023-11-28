@@ -1,6 +1,7 @@
 package com.daffa.swiftshift.presentation.features.splash
 
 import android.content.pm.ActivityInfo
+import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -25,6 +27,7 @@ import com.daffa.swiftshift.R
 import com.daffa.swiftshift.presentation.navigation.Screen
 import com.daffa.swiftshift.presentation.ui.theme.Primary800
 import com.daffa.swiftshift.presentation.util.LockScreenOrientation
+import com.daffa.swiftshift.presentation.util.ObserveAsEvents
 import com.daffa.swiftshift.util.Constants
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -36,30 +39,35 @@ fun SplashScreen(
 ) {
     LockScreenOrientation(orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
+    val context = LocalContext.current
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val alpha = remember {
         Animatable(0f)
     }
 
-    LaunchedEffect(key1 = true) {
-        viewModel.eventFlow.collectLatest { event ->
-            println("CHECK2")
-            when (event) {
-                is SplashEvent.NavigateToOnBoarding -> {
-                    navController.navigate(Screen.OnBoardingScreen.route) {
-                        popUpTo(Screen.SplashScreen.route) {
-                            inclusive = true
-                        }
+    ObserveAsEvents(flow = viewModel.eventFlow) { event ->
+        when(event) {
+            SplashViewModel.UiEvent.NavigateToHome -> {
+                navController.navigate(Screen.HomeScreen.route) {
+                    popUpTo(Screen.SplashScreen.route) {
+                        inclusive = true
                     }
                 }
+            }
+            SplashViewModel.UiEvent.NavigateToOnBoarding -> {
+                navController.navigate(Screen.OnBoardingScreen.route) {
+                    popUpTo(Screen.SplashScreen.route) {
+                        inclusive = true
+                    }
+                }
+            }
 
-                is SplashEvent.NavigateToLogin -> {
-                    navController.navigate(Screen.LoginScreen.route) {
-                        popUpTo(Screen.SplashScreen.route) {
-                            inclusive = true
-                        }
-                    }
-                }
+            is SplashViewModel.UiEvent.ShowToast -> {
+                Toast.makeText(
+                    context,
+                    event.uiText.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -68,12 +76,11 @@ fun SplashScreen(
         alpha.animateTo(
             targetValue = 1f,
             animationSpec = tween(
-                durationMillis = 1500
+                durationMillis = 1000
             )
         )
         delay(Constants.SPLASH_SCREEN_DURATION)
-        viewModel.navigateToNextDestination()
-        println("CHECK1")
+        viewModel.auth()
     }
 
     Column(

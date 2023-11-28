@@ -28,7 +28,7 @@ import androidx.compose.material3.Text
 import com.daffa.swiftshift.R
 import com.daffa.swiftshift.presentation.features.register.page.RegisterSecondPage
 import com.daffa.swiftshift.presentation.features.register.page.RegisterFifthPage
-import com.daffa.swiftshift.presentation.features.register.page.RegisterFirstScreen
+import com.daffa.swiftshift.presentation.features.register.page.RegisterFirstPage
 import com.daffa.swiftshift.presentation.features.register.page.RegisterThirdPage
 import com.daffa.swiftshift.presentation.features.register.page.RegisterFourthPage
 import com.daffa.swiftshift.presentation.ui.theme.IconSizeMedium
@@ -48,7 +48,7 @@ fun RegisterScreen(
     LockScreenOrientation(orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
     val pagerState = rememberPagerState { 5 }
-    val coroutineScope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -66,7 +66,7 @@ fun RegisterScreen(
                     if (pagerState.currentPage == 0)
                         navController.popBackStack()
                     else
-                        coroutineScope.launch {
+                        scope.launch {
                             pagerState.animateScrollToPage(pagerState.currentPage - 1)
                         }
                 },
@@ -90,7 +90,7 @@ fun RegisterScreen(
             userScrollEnabled = false
         ) { index ->
             when (index) {
-                0 -> RegisterFirstScreen(pagerState = pagerState, viewModel = viewModel)
+                0 -> RegisterFirstPage(pagerState = pagerState, viewModel = viewModel)
                 1 -> RegisterSecondPage(pagerState = pagerState, viewModel = viewModel)
                 2 -> RegisterThirdPage(pagerState = pagerState, viewModel = viewModel)
                 3 -> RegisterFourthPage(pagerState = pagerState, viewModel = viewModel)

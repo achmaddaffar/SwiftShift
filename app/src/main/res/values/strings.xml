@@ -80,4 +80,8 @@
     <string name="remove_photo">Remove photo</string>
     <string name="done">Done</string>
     <string name="success_register">Your account has been created successfully.</string>
+    <string name="you_want_to_login_as">You want to login as?</string>
+    <string name="success_login">Login success!</string>
+    <string name="error_couldnt_reach_server">Oops! Couldn\\\'t reach server. Check your internet connection</string>
+    <string name="error_something_went_wrong">Oops! Something went wrong. Please try again.</string>
 </resources>

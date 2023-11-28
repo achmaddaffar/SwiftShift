@@ -1,4 +1,4 @@
-package com.daffa.swiftshift.domain.use_case
+package com.daffa.swiftshift.domain.use_case.gig_worker
 
 import android.net.Uri
 import com.daffa.swiftshift.domain.repository.IGigWorkerRepository

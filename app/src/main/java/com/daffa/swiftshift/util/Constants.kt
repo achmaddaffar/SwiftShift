@@ -7,6 +7,8 @@ object Constants {
 
     const val SPLASH_SCREEN_DURATION = 250L
     const val MIN_PASSWORD_LENGTH = 3
+
+    const val KEY_ROLE = "role"
     const val GIG_WORKER = "gigWorker"
     const val GIG_PROVIDER = "gigProvider"
 

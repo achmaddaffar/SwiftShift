@@ -3,9 +3,9 @@ package com.daffa.swiftshift.data.repository
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.core.net.toFile
+import com.daffa.swiftshift.data.remote.api.GigWorkerApi
 import com.daffa.swiftshift.data.remote.request.CreateGigWorkerRequest
 import com.daffa.swiftshift.data.remote.request.LoginRequest
-import com.daffa.swiftshift.data.remote.api.GigWorkerApi
 import com.daffa.swiftshift.domain.repository.IGigWorkerRepository
 import com.daffa.swiftshift.util.Constants
 import com.daffa.swiftshift.util.Resource
@@ -93,6 +93,7 @@ class GigWorkerRepository(
                 response.data?.token?.let { token ->
                     sharedPreferences.edit()
                         .putString(Constants.KEY_JWT_TOKEN, token)
+                        .putString(Constants.KEY_ROLE, Constants.GIG_WORKER)
                         .apply()
                 }
                 emit(Resource.Success(Unit))

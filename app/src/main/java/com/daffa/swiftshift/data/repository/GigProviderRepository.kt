@@ -23,8 +23,8 @@ import retrofit2.HttpException
 class GigProviderRepository(
     private val api: GigProviderApi,
     private val gson: Gson,
-    private val sharedPreferences: SharedPreferences
-): IGigProviderRepository {
+    private val sharedPreferences: SharedPreferences,
+) : IGigProviderRepository {
 
     override suspend fun register(
         fullName: String,
@@ -80,7 +80,7 @@ class GigProviderRepository(
 
     override suspend fun login(
         email: String,
-        password: String
+        password: String,
     ): Flow<SimpleResource> = flow {
         emit(Resource.Loading())
         val request = LoginRequest(
@@ -94,6 +94,7 @@ class GigProviderRepository(
                 response.data?.token?.let { token ->
                     sharedPreferences.edit()
                         .putString(Constants.KEY_JWT_TOKEN, token)
+                        .putString(Constants.KEY_ROLE, Constants.GIG_PROVIDER)
                         .apply()
                 }
                 emit(Resource.Success(Unit))

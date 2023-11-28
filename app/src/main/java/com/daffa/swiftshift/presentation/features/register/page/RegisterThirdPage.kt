@@ -80,7 +80,7 @@ fun RegisterThirdPage(
             SwiftShiftTextField(
                 text = fullNameState.text,
                 onValueChange = {
-                    viewModel.onEvent(RegisterEvent.EnteredFullName(it))
+                    viewModel.onEvent(RegisterEvent.EnterFullName(it))
                 },
                 error = when (fullNameState.error) {
                     is AuthError.FieldEmpty -> {

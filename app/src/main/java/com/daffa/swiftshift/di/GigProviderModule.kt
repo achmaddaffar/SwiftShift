@@ -4,7 +4,8 @@ import android.content.SharedPreferences
 import com.daffa.swiftshift.data.remote.api.GigProviderApi
 import com.daffa.swiftshift.data.repository.GigProviderRepository
 import com.daffa.swiftshift.domain.repository.IGigProviderRepository
-import com.daffa.swiftshift.domain.use_case.RegisterGigProviderUseCase
+import com.daffa.swiftshift.domain.use_case.gig_provider.LoginGigProviderUseCase
+import com.daffa.swiftshift.domain.use_case.gig_provider.RegisterGigProviderUseCase
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -33,16 +34,20 @@ object GigProviderModule {
     fun provideGigProviderRepository(
         api: GigProviderApi,
         gson: Gson,
-        sharedPreferences: SharedPreferences
-    ): IGigProviderRepository {
-        return GigProviderRepository(api, gson, sharedPreferences)
-    }
+        sharedPreferences: SharedPreferences,
+    ): IGigProviderRepository = GigProviderRepository(api, gson, sharedPreferences)
+
 
     @Provides
     @Singleton
     fun provideRegisterGigProviderUseCase(
-        repository: IGigProviderRepository
-    ): RegisterGigProviderUseCase {
-        return RegisterGigProviderUseCase(repository)
-    }
+        repository: IGigProviderRepository,
+    ): RegisterGigProviderUseCase = RegisterGigProviderUseCase(repository)
+
+
+    @Provides
+    @Singleton
+    fun provideLoginGigProviderUseCase(
+        repository: IGigProviderRepository,
+    ): LoginGigProviderUseCase = LoginGigProviderUseCase(repository)
 }

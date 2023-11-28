@@ -78,7 +78,7 @@ fun RegisterFourthPage(
             SwiftShiftTextField(
                 text = passwordState.text,
                 onValueChange = {
-                    viewModel.onEvent(RegisterEvent.EnteredPassword(it))
+                    viewModel.onEvent(RegisterEvent.EnterPassword(it))
                 },
                 error = when (passwordState.error) {
                     AuthError.FieldEmpty -> {
@@ -111,7 +111,7 @@ fun RegisterFourthPage(
             SwiftShiftTextField(
                 text = confirmPasswordState.text,
                 onValueChange = {
-                    viewModel.onEvent(RegisterEvent.EnteredConfirmPassword(it))
+                    viewModel.onEvent(RegisterEvent.EnterConfirmPassword(it))
                 },
                 error = when (passwordState.error) {
                     AuthError.FieldEmpty -> {

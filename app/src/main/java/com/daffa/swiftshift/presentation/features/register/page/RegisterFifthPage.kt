@@ -60,7 +60,7 @@ import com.daffa.swiftshift.presentation.ui.theme.Primary700
 import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
 import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
-import com.daffa.swiftshift.presentation.util.CropActivityResultContract
+import com.daffa.swiftshift.presentation.util.contract.CropActivityResultContract
 import com.daffa.swiftshift.presentation.util.ObserveAsEvents
 import com.daffa.swiftshift.util.asString
 import kotlinx.coroutines.launch
@@ -90,7 +90,7 @@ fun RegisterFifthPage(
         cropActivityLauncher.launch(it)
     }
 
-    ObserveAsEvents(flow = viewModel.uiChannelFlow) { event ->
+    ObserveAsEvents(flow = viewModel.eventFlow) { event ->
         when (event) {
             RegisterViewModel.UiEvent.NavigateToLogin -> {
                 Toast.makeText(

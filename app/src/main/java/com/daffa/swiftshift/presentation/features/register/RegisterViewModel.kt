@@ -1,14 +1,13 @@
 package com.daffa.swiftshift.presentation.features.register
 
 import android.net.Uri
-import android.widget.Toast
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.daffa.swiftshift.domain.use_case.RegisterGigProviderUseCase
-import com.daffa.swiftshift.domain.use_case.RegisterGigWorkerUseCase
+import com.daffa.swiftshift.domain.use_case.gig_provider.RegisterGigProviderUseCase
+import com.daffa.swiftshift.domain.use_case.gig_worker.RegisterGigWorkerUseCase
 import com.daffa.swiftshift.domain.util.ValidationUtil
 import com.daffa.swiftshift.presentation.util.state.BaseTextFieldState
 import com.daffa.swiftshift.presentation.util.state.PasswordTextFieldState
@@ -51,32 +50,32 @@ class RegisterViewModel @Inject constructor(
     val registerState: State<RegisterState> = _registerState
 
     private val channel = Channel<UiEvent>()
-    val uiChannelFlow = channel.receiveAsFlow()
+    val eventFlow = channel.receiveAsFlow()
 
     private val _chosenImageUri = mutableStateOf<Uri?>(null)
     val chosenImageUri: State<Uri?> = _chosenImageUri
 
     fun onEvent(event: RegisterEvent) {
         when (event) {
-            is RegisterEvent.EnteredEmailAddress -> {
+            is RegisterEvent.EnterEmailAddress -> {
                 _emailState.value = _emailState.value.copy(
                     text = event.value
                 )
             }
 
-            is RegisterEvent.EnteredFullName -> {
+            is RegisterEvent.EnterFullName -> {
                 _fullNameState.value = _fullNameState.value.copy(
                     text = event.value
                 )
             }
 
-            is RegisterEvent.EnteredPassword -> {
+            is RegisterEvent.EnterPassword -> {
                 _passwordState.value = _passwordState.value.copy(
                     text = event.value
                 )
             }
 
-            is RegisterEvent.EnteredConfirmPassword -> {
+            is RegisterEvent.EnterConfirmPassword -> {
                 _confirmPasswordState.value = _confirmPasswordState.value.copy(
                     text = event.value
                 )
@@ -189,7 +188,7 @@ class RegisterViewModel @Inject constructor(
                 )
             }
 
-            is RegisterEvent.SelectedRole -> {
+            is RegisterEvent.SelectRole -> {
                 _options.forEach { it.selected = false }
                 _options.find { it.option == event.selectionOption.option }?.selected = true
             }

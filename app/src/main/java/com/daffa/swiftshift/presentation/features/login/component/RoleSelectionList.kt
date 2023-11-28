@@ -1,4 +1,4 @@
-package com.daffa.swiftshift.presentation.features.register.component
+package com.daffa.swiftshift.presentation.features.login.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -23,7 +23,7 @@ fun RoleSelectionList(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        com.daffa.swiftshift.presentation.features.login.component.RoleCard(
+        RoleCard(
             title = stringResource(R.string.gig_worker),
             imageRes = R.drawable.img_gig_worker,
             contentDescriptionRes = R.string.gig_worker_role,
@@ -31,7 +31,7 @@ fun RoleSelectionList(
             selectionOption = options[0]
         )
         Spacer(modifier = Modifier.width(SpaceMedium))
-        com.daffa.swiftshift.presentation.features.login.component.RoleCard(
+        RoleCard(
             title = stringResource(R.string.gig_provider),
             imageRes = R.drawable.img_gig_provider,
             contentDescriptionRes = R.string.gig_provider_role,

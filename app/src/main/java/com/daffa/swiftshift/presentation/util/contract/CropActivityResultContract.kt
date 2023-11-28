@@ -1,4 +1,4 @@
-package com.daffa.swiftshift.presentation.util
+package com.daffa.swiftshift.presentation.util.contract
 
 import android.content.Context
 import android.content.Intent

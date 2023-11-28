@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.daffa.swiftshift.R
 import com.daffa.swiftshift.presentation.features.register.RegisterEvent
 import com.daffa.swiftshift.presentation.features.register.RegisterViewModel
-import com.daffa.swiftshift.presentation.features.register.component.RoleSelectionList
+import com.daffa.swiftshift.presentation.features.login.component.RoleSelectionList
 import com.daffa.swiftshift.presentation.ui.theme.Primary600
 import com.daffa.swiftshift.presentation.ui.theme.Slate300
 import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RegisterFirstScreen(
+fun RegisterFirstPage(
     pagerState: PagerState,
     viewModel: RegisterViewModel,
 ) {
@@ -73,7 +73,7 @@ fun RegisterFirstScreen(
             RoleSelectionList(
                 options = viewModel.options,
                 onOptionClicked = {
-                    viewModel.onEvent(RegisterEvent.SelectedRole(it))
+                    viewModel.onEvent(RegisterEvent.SelectRole(it))
                 },
                 modifier = Modifier.fillMaxWidth()
             )
