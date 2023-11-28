@@ -107,13 +107,6 @@ dependencies {
     implementation("com.google.accompanist:accompanist-coil:0.10.0")
     implementation("io.coil-kt:coil-compose:2.2.2")
 
-    //koin
-//    implementation ("io.insert-koin:koin-core:$koin_version")
-//    implementation ("io.insert-koin:koin-android:$koin_android_version")
-//    implementation( "io.insert-koin:koin-androidx-workmanager:$koin_android_version")
-//    implementation ("io.insert-koin:koin-androidx-navigation:$koin_android_version")
-//    implementation ("io.insert-koin:koin-androidx-compose:$koin_android_compose_version")
-
     // Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     ksp("com.google.dagger:hilt-android-compiler:2.48")
@@ -142,6 +135,9 @@ dependencies {
 
     // Shimmer
     implementation("com.valentinilk.shimmer:compose-shimmer:1.0.5")
+
+    // uCrop
+    implementation("com.github.yalantis:ucrop:2.2.6")
 
     // Room
     implementation("androidx.room:room-ktx:2.6.0")

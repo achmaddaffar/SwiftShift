@@ -76,4 +76,8 @@
     <string name="gig_location">Gig location</string>
     <string name="nearby_gigs">Nearby Gigs</string>
     <string name="search_icon">Search icon</string>
+    <string name="error_uknown">Unknown error</string>
+    <string name="remove_photo">Remove photo</string>
+    <string name="done">Done</string>
+    <string name="success_register">Your account has been created successfully.</string>
 </resources>

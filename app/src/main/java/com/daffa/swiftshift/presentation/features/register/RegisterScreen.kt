@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.IconButton
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -41,6 +42,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterScreen(
     navController: NavController,
+    scaffoldState: ScaffoldState,
     viewModel: RegisterViewModel = hiltViewModel(),
 ) {
     LockScreenOrientation(orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -95,7 +97,8 @@ fun RegisterScreen(
                 4 -> RegisterFifthPage(
                     navController = navController,
                     pagerState = pagerState,
-                    viewModel = viewModel
+                    viewModel = viewModel,
+                    scaffoldState = scaffoldState
                 )
             }
         }

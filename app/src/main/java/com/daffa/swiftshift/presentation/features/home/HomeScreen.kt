@@ -48,7 +48,7 @@ fun HomeScreen(
     ) {
         item {
             HomeTopBanner(
-                userFullName = "Dimas Cimol",
+                userFullName = "Dimas Cimol Emmanuel",
                 profilePictureUrl = null,
                 locationName = null,
                 modifier = Modifier

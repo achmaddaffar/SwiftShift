@@ -1,20 +1,31 @@
 package com.daffa.swiftshift.presentation.features.register
 
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.daffa.swiftshift.domain.use_case.RegisterGigProviderUseCase
+import com.daffa.swiftshift.domain.use_case.RegisterGigWorkerUseCase
 import com.daffa.swiftshift.domain.util.ValidationUtil
 import com.daffa.swiftshift.presentation.util.state.BaseTextFieldState
 import com.daffa.swiftshift.presentation.util.state.PasswordTextFieldState
 import com.daffa.swiftshift.presentation.util.state.SelectionOption
 import com.daffa.swiftshift.util.Constants
+import com.daffa.swiftshift.util.Resource
+import com.daffa.swiftshift.util.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-
+    private val registerGigWorker: RegisterGigWorkerUseCase,
+    private val registerGigProvider: RegisterGigProviderUseCase
 ) : ViewModel() {
 
     private val _emailState = mutableStateOf(BaseTextFieldState())
@@ -35,6 +46,15 @@ class RegisterViewModel @Inject constructor(
     ).toMutableStateList()
     val options: List<SelectionOption<String>>
         get() = _options
+
+    private val _registerState = mutableStateOf(RegisterState())
+    val registerState: State<RegisterState> = _registerState
+
+    private val channel = Channel<UiEvent>()
+    val uiChannelFlow = channel.receiveAsFlow()
+
+    private val _chosenImageUri = mutableStateOf<Uri?>(null)
+    val chosenImageUri: State<Uri?> = _chosenImageUri
 
     fun onEvent(event: RegisterEvent) {
         when (event) {
@@ -67,17 +87,94 @@ class RegisterViewModel @Inject constructor(
             }
 
 
-            RegisterEvent.InsertProfilePicture -> {
+            is RegisterEvent.PickImage -> {
+                _chosenImageUri.value = event.uri
+            }
 
+            is RegisterEvent.CropImage -> {
+                _chosenImageUri.value = event.uri
+            }
+
+            RegisterEvent.RemovePhoto -> {
+                _chosenImageUri.value = null
             }
 
             RegisterEvent.Register -> {
+                when (selectedRole()) {
+                    Constants.GIG_WORKER -> {
+                        viewModelScope.launch {
+                            registerGigWorker(
+                                fullName = fullNameState.value.text,
+                                email = emailState.value.text,
+                                password = passwordState.value.text,
+                                imageUri = chosenImageUri.value
+                            ).collect { result ->
+                                when (result) {
+                                    is Resource.Error -> {
+                                        _registerState.value = _registerState.value.copy(
+                                            isLoading = false
+                                        )
+                                        result.uiText?.let {
+                                            channel.send(
+                                                UiEvent.ShowSnackBar(it)
+                                            )
+                                        }
+                                    }
 
-            }
+                                    is Resource.Loading -> {
+                                        _registerState.value = _registerState.value.copy(
+                                            isLoading = true
+                                        )
+                                    }
 
+                                    is Resource.Success -> {
+                                        _registerState.value = _registerState.value.copy(
+                                            isLoading = false
+                                        )
+                                        channel.send(UiEvent.NavigateToLogin)
+                                    }
+                                }
+                            }
+                        }
+                    }
 
-            RegisterEvent.RegisterWithoutProfilePicture -> {
+                    Constants.GIG_PROVIDER -> {
+                        viewModelScope.launch {
+                            registerGigProvider(
+                                fullName = fullNameState.value.text,
+                                email = emailState.value.text,
+                                password = passwordState.value.text,
+                                imageUri = chosenImageUri.value
+                            ).collect { result ->
+                                when (result) {
+                                    is Resource.Error -> {
+                                        _registerState.value = _registerState.value.copy(
+                                            isLoading = false
+                                        )
+                                        result.uiText?.let {
+                                            channel.send(
+                                                UiEvent.ShowSnackBar(it)
+                                            )
+                                        }
+                                    }
 
+                                    is Resource.Loading -> {
+                                        _registerState.value = _registerState.value.copy(
+                                            isLoading = true
+                                        )
+                                    }
+
+                                    is Resource.Success -> {
+                                        _registerState.value = _registerState.value.copy(
+                                            isLoading = true
+                                        )
+                                        channel.send(UiEvent.NavigateToLogin)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             RegisterEvent.TogglePasswordVisibility -> {
@@ -105,6 +202,10 @@ class RegisterViewModel @Inject constructor(
                 return true
         }
         return false
+    }
+
+    private fun selectedRole(): String {
+        return _options.first { it.selected }.option
     }
 
     private fun proceedNextScreen(destinationIndex: Int) {
@@ -169,5 +270,10 @@ class RegisterViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    sealed class UiEvent {
+        data class ShowSnackBar(val uiText: UiText) : UiEvent()
+        data object NavigateToLogin : UiEvent()
     }
 }

@@ -23,7 +23,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route,
+        startDestination = Screen.SplashScreen.route,
         modifier = modifier
     ) {
         composable(Screen.SplashScreen.route) {
@@ -36,7 +36,7 @@ fun Navigation(
             LoginScreen(navController = navController)
         }
         composable(Screen.RegisterScreen.route) {
-            RegisterScreen(navController = navController)
+            RegisterScreen(navController = navController, scaffoldState = scaffoldState)
         }
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController, scaffoldState = scaffoldState)
