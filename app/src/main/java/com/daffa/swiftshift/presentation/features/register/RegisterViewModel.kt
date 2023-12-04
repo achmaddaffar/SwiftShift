@@ -238,8 +238,8 @@ class RegisterViewModel @Inject constructor(
                 _confirmPasswordState.value = confirmPasswordState.value.copy(error = null)
 
                 val passwordError = ValidationUtil.validatePassword(passwordState.value.text)
-                val confirmPasswordError =
-                    ValidationUtil.validatePassword(confirmPasswordState.value.text)
+                val confirmPasswordError = ValidationUtil.validatePassword(confirmPasswordState.value.text)
+
                 if (passwordError != null) {
                     _passwordState.value = passwordState.value.copy(
                         error = passwordError
@@ -252,7 +252,7 @@ class RegisterViewModel @Inject constructor(
                     )
                 }
 
-                if (passwordError == null && confirmPasswordError == null) {
+                if (passwordError == null || confirmPasswordError == null) {
                     val matchPasswordError = ValidationUtil.validateConfirmPassword(
                         passwordState.value.text,
                         confirmPasswordState.value.text

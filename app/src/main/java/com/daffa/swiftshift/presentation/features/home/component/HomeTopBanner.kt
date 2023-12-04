@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -32,13 +31,12 @@ import com.daffa.swiftshift.presentation.ui.theme.Primary600
 import com.daffa.swiftshift.presentation.ui.theme.Primary800
 import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
 import com.daffa.swiftshift.presentation.ui.theme.SpaceMedium
-import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
 import com.valentinilk.shimmer.shimmer
 
 @Composable
 fun HomeTopBanner(
-    userFullName: String,
+    userFullName: String?,
     profilePictureUrl: String?,
     locationName: String?,
     modifier: Modifier = Modifier,
@@ -56,12 +54,28 @@ fun HomeTopBanner(
                 text = stringResource(R.string.welcome) + ",",
                 style = Type.heading5Regular()
             )
-            Text(
-                text = userFullName,
-                style = Type.heading3SemiBold(),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            userFullName?.let {
+                Text(
+                    text = it,
+                    style = Type.heading3SemiBold(),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            } ?: kotlin.run {
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(6.dp))
+                        .height(SpaceMedium * 2)
+                        .width(SpaceLarge * 6)
+                        .shimmer()
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(HintGray)
+                    )
+                }
+            }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -100,21 +114,24 @@ fun HomeTopBanner(
                 }
             }
         }
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .weight(1f)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
         ) {
             profilePictureUrl?.let {
-                if (it.isBlank())
+                if (it.isEmpty()) {
                     Image(
                         painter = painterResource(id = R.drawable.img_profile_picture),
                         contentDescription = stringResource(id = R.string.profile_picture),
                         modifier = Modifier
                             .size(100.dp)
+                            .background(Color.Red)
                             .clip(CircleShape),
                         contentScale = ContentScale.Crop
                     )
-                else
+                } else {
+                    println("hermano $it")
                     AsyncImage(
                         model = it,
                         contentDescription = stringResource(R.string.profile_picture),
@@ -123,6 +140,7 @@ fun HomeTopBanner(
                             .clip(CircleShape),
                         contentScale = ContentScale.Crop,
                     )
+                }
             } ?: kotlin.run {
                 Box(
                     modifier = Modifier

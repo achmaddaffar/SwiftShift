@@ -1,6 +1,8 @@
 package com.daffa.swiftshift.domain.repository
 
 import android.net.Uri
+import com.daffa.swiftshift.data.remote.response.GigWorkerResponse
+import com.daffa.swiftshift.util.Resource
 import com.daffa.swiftshift.util.SimpleResource
 import kotlinx.coroutines.flow.Flow
 
@@ -17,4 +19,6 @@ interface IGigWorkerRepository {
         email: String,
         password: String
     ): Flow<SimpleResource>
+
+    suspend fun getProfileByEmail(): Flow<Resource<GigWorkerResponse>>
 }

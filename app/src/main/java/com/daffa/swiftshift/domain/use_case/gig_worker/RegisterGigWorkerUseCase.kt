@@ -4,8 +4,9 @@ import android.net.Uri
 import com.daffa.swiftshift.domain.repository.IGigWorkerRepository
 import com.daffa.swiftshift.util.SimpleResource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class RegisterGigWorkerUseCase(
+class RegisterGigWorkerUseCase @Inject constructor(
     private val repository: IGigWorkerRepository
 ) {
     suspend operator fun invoke(

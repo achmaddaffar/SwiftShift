@@ -39,14 +39,12 @@ object GigProviderModule {
 
 
     @Provides
-    @Singleton
     fun provideRegisterGigProviderUseCase(
         repository: IGigProviderRepository,
     ): RegisterGigProviderUseCase = RegisterGigProviderUseCase(repository)
 
 
     @Provides
-    @Singleton
     fun provideLoginGigProviderUseCase(
         repository: IGigProviderRepository,
     ): LoginGigProviderUseCase = LoginGigProviderUseCase(repository)

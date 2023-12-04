@@ -1,16 +1,12 @@
-package com.daffa.swiftshift.domain.model
+package com.daffa.swiftshift.data.local.entity
 
-//data class Gig(
-//    val title: String,
-//    val tag: String,
-//    val imageUrl: String?,
-//    val gigProviderName: String,
-//    val wage: Double,
-//    val location: String,
-//    val timestamp: Long
-//)
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-data class Gig(
+@Entity
+data class GigEntity(
+    @PrimaryKey
+    val id: String,
     val title: String,
     val imageUrl: String,
     val description: String,
@@ -25,5 +21,4 @@ data class Gig(
     val latitude: Double,
     val timestamp: Long,
     val distance: Double,
-    val id: String
 )

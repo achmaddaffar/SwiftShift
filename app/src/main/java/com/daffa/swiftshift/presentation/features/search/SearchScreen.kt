@@ -78,21 +78,21 @@ fun SearchScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             item {
-                NearbyGigCard(
-                    gig = Gig(
-                        title = "Buy Monthly Groceries",
-                        tag = "Delivery",
-                        imageUrl = "https://d32ijn7u0aqfv4.cloudfront.net/wp/wp-content/uploads/raw/SORL0423010_1560x880_desktop.jpg",
-                        gigProviderName = "John Family",
-                        wage = 50000.0,
-                        location = "Malang",
-                        timestamp = 10
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(225.dp)
-                        .padding(horizontal = SpaceMedium)
-                )
+//                NearbyGigCard(
+//                    gig = Gig(
+//                        title = "Buy Monthly Groceries",
+//                        tag = "Delivery",
+//                        imageUrl = "https://d32ijn7u0aqfv4.cloudfront.net/wp/wp-content/uploads/raw/SORL0423010_1560x880_desktop.jpg",
+//                        gigProviderName = "John Family",
+//                        wage = 50000.0,
+//                        location = "Malang",
+//                        timestamp = 10
+//                    ),
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(225.dp)
+//                        .padding(horizontal = SpaceMedium)
+//                )
             }
         }
     }

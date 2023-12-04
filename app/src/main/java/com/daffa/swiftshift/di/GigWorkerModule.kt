@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.daffa.swiftshift.data.remote.api.GigWorkerApi
 import com.daffa.swiftshift.data.repository.GigWorkerRepository
 import com.daffa.swiftshift.domain.repository.IGigWorkerRepository
+import com.daffa.swiftshift.domain.use_case.gig_worker.GetProfileGigWorkerUseCase
 import com.daffa.swiftshift.domain.use_case.gig_worker.LoginGigWorkerUseCase
 import com.daffa.swiftshift.domain.use_case.gig_worker.RegisterGigWorkerUseCase
 import com.google.gson.Gson
@@ -36,17 +37,4 @@ object GigWorkerModule {
         gson: Gson,
         sharedPreferences: SharedPreferences,
     ): IGigWorkerRepository = GigWorkerRepository(api, gson, sharedPreferences)
-
-
-    @Provides
-    @Singleton
-    fun provideRegisterGigWorkerUseCase(
-        repository: IGigWorkerRepository,
-    ): RegisterGigWorkerUseCase = RegisterGigWorkerUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideLoginGigWorkerUseCase(
-        repository: IGigWorkerRepository,
-    ): LoginGigWorkerUseCase = LoginGigWorkerUseCase(repository)
 }

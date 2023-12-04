@@ -28,10 +28,10 @@ object ValidationUtil {
         val numberInPassword = password.any { it.isDigit() }
         if (password.isBlank())
             return AuthError.FieldEmpty
-        if (!capitalLetterInPassword || !numberInPassword)
-            return AuthError.InvalidPassword
         if (password.length < Constants.MIN_PASSWORD_LENGTH)
             return AuthError.InputTooShort
+        if (!capitalLetterInPassword || !numberInPassword)
+            return AuthError.InvalidPassword
         return null
     }
 

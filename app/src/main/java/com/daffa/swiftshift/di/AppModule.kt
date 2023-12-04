@@ -2,7 +2,10 @@ package com.daffa.swiftshift.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.daffa.swiftshift.data.repository.LocationRepository
+import com.daffa.swiftshift.domain.repository.ILocationRepository
 import com.daffa.swiftshift.util.Constants
+import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -28,4 +31,12 @@ object AppModule {
     fun provideGson(): Gson {
         return Gson()
     }
+
+    @Provides
+    fun provideLocationClient(
+        @ApplicationContext context: Context
+    ): ILocationRepository = LocationRepository(
+        context,
+        LocationServices.getFusedLocationProviderClient(context)
+    )
 }

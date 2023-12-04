@@ -35,10 +35,4 @@ object AuthModule {
     ): IAuthRepository {
         return AuthRepository(api, sharedPreferences)
     }
-
-    @Provides
-    @Singleton
-    fun provideAuthenticateUseCase(repository: IAuthRepository): AuthenticateUseCase {
-        return AuthenticateUseCase(repository)
-    }
 }

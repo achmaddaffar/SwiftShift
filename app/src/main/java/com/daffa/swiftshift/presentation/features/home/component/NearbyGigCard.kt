@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -28,10 +30,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.daffa.swiftshift.R
 import com.daffa.swiftshift.domain.model.Gig
+import com.daffa.swiftshift.presentation.ui.theme.HintGray
 import com.daffa.swiftshift.presentation.ui.theme.Slate800
+import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
 import com.daffa.swiftshift.presentation.ui.theme.SpaceMedium
 import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
+import com.valentinilk.shimmer.shimmer
+import okhttp3.internal.format
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -125,7 +131,7 @@ fun NearbyGigCard(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "Rp. ${gig.wage}",
+                            text = "Rp. ${gig.salary}",
                             style = Type.body5Bold(),
                             color = Color.Black
                         )
@@ -139,7 +145,7 @@ fun NearbyGigCard(
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = gig.location,
+                                text = format("%.2f Km", gig.distance),
                                 style = Type.body5Bold(),
                                 color = Color.Black
                             )
@@ -148,5 +154,22 @@ fun NearbyGigCard(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun NearbyGigCardShimmer(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(8.dp))
+            .shimmer()
+    ) {
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .background(HintGray)
+        )
     }
 }
