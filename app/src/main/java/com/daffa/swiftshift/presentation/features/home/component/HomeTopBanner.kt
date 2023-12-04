@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.daffa.swiftshift.R
 import com.daffa.swiftshift.presentation.ui.theme.HintGray
 import com.daffa.swiftshift.presentation.ui.theme.Primary600
@@ -131,14 +132,16 @@ fun HomeTopBanner(
                         contentScale = ContentScale.Crop
                     )
                 } else {
-                    println("hermano $it")
-                    AsyncImage(
+                    SubcomposeAsyncImage(
                         model = it,
                         contentDescription = stringResource(R.string.profile_picture),
                         modifier = Modifier
                             .size(100.dp)
                             .clip(CircleShape),
                         contentScale = ContentScale.Crop,
+                        loading = {
+                            CircularProgressIndicator()
+                        }
                     )
                 }
             } ?: kotlin.run {

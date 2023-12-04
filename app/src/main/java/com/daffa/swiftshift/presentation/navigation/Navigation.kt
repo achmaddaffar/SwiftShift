@@ -1,5 +1,7 @@
 package com.daffa.swiftshift.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +17,7 @@ import com.daffa.swiftshift.presentation.features.register.RegisterScreen
 import com.daffa.swiftshift.presentation.features.search.SearchScreen
 import com.daffa.swiftshift.presentation.features.splash.SplashScreen
 
+@RequiresApi(Build.VERSION_CODES.S)
 @Composable
 fun Navigation(
     navController: NavHostController,
@@ -42,7 +45,7 @@ fun Navigation(
             HomeScreen(navController = navController, scaffoldState = scaffoldState)
         }
         composable(Screen.ProfileScreen.route) {
-            ProfileScreen(navController = navController)
+            ProfileScreen(navController = navController, scaffoldState = scaffoldState)
         }
         composable(Screen.SearchScreen.route) {
             SearchScreen(navController = navController)

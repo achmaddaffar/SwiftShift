@@ -29,4 +29,10 @@ class AuthRepository(
             emit(Resource.Error(UiText.StringResource(R.string.error_couldnt_reach_server)))
         }
     }
+
+    override fun logout() {
+        sharedPreferences.edit()
+            .clear()
+            .apply()
+    }
 }

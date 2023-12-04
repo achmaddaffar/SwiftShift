@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface IAuthRepository {
 
     suspend fun authenticate(): Flow<SimpleResource>
+
+    fun logout()
 }

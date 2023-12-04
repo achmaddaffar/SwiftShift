@@ -12,6 +12,8 @@ val Pink40 = Color(0xFF7D5260)
 
 val HintGray = Color(0xFF6D6D6D)
 
+val CoralRed = Color(0xFFFF4343)
+
 val Primary50 = Color(0xFFe7f0fa)
 val Primary100 = Color(0xFFb5d0ee)
 val Primary200 = Color(0xFF92b9e6)

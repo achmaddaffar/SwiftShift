@@ -90,4 +90,11 @@
     <string name="settings">Settings</string>
     <string name="we_need_permissions_to_use_this_app">We need permissions to use this app</string>
     <string name="we_need_location_permissions_to_use_this_app">We need location permissions to use this app</string>
+    <string name="edit">Edit</string>
+    <string name="total_income">Total Income</string>
+    <string name="joining_date">Joining Date</string>
+    <string name="bio_data">Bio Data</string>
+    <string name="email">Email</string>
+    <string name="curriculum_vitae">Curriculum Vitae</string>
+    <string name="logout">Logout</string>
 </resources>
