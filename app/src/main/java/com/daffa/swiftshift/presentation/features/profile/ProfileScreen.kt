@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -43,6 +44,7 @@ import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
 import com.daffa.swiftshift.presentation.util.ObserveAsEvents
 import com.daffa.swiftshift.util.DateUtil
+import com.daffa.swiftshift.util.asString
 import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
 
@@ -52,6 +54,7 @@ fun ProfileScreen(
     scaffoldState: ScaffoldState,
     viewModel: ProfileViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val state by viewModel.state
 
@@ -60,7 +63,7 @@ fun ProfileScreen(
             is ProfileViewModel.UiEvent.ShowSnackBar -> {
                 scope.launch {
                     scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.uiText.toString(),
+                        message = event.uiText.asString(context),
                         duration = SnackbarDuration.Long
                     )
                 }

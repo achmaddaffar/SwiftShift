@@ -97,4 +97,5 @@
     <string name="email">Email</string>
     <string name="curriculum_vitae">Curriculum Vitae</string>
     <string name="logout">Logout</string>
+    <string name="search_gigs">Search Gigs</string>
 </resources>

@@ -48,7 +48,7 @@ fun Navigation(
             ProfileScreen(navController = navController, scaffoldState = scaffoldState)
         }
         composable(Screen.SearchScreen.route) {
-            SearchScreen(navController = navController)
+            SearchScreen(navController = navController, scaffoldState = scaffoldState)
         }
         composable(Screen.HistoryScreen.route) {
             HistoryScreen(navController = navController)

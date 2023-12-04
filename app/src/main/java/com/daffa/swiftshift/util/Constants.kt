@@ -7,6 +7,7 @@ object Constants {
     const val PREFERENCES_NAME = "SwiftShift_Preferences"
     const val GIG_DATABASE_NAME = "gig.db"
 
+    const val SEARCH_DELAY_DURATION = 1000L
     const val SPLASH_SCREEN_DURATION = 250L
     const val MIN_PASSWORD_LENGTH = 3
 

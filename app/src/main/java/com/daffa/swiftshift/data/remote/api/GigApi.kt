@@ -36,6 +36,12 @@ interface GigApi {
         @Query("longitude") longitude: Double
     ): BasicApiResponse<List<GigDto>>
 
+    @GET("/api/gig/search")
+    suspend fun searchGig(
+        @Header("Authorization") token: String,
+        @Query("query") query: String
+    ): BasicApiResponse<List<GigDto>>
+
     companion object {
         const val BASE_URL = Constants.BASE_URL
     }

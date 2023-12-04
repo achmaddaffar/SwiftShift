@@ -115,4 +115,33 @@ class GigRepository(
             emit(Resource.Error(UiText.DynamicString(e.toString())))
         }
     }.flowOn(Dispatchers.IO)
+
+    override suspend fun searchGig(
+        query: String
+    ): Flow<Resource<List<Gig>>> = flow {
+        emit(Resource.Loading())
+
+        try {
+            val token =
+                sharedPreferences.getString(Constants.KEY_JWT_TOKEN, String.Empty).toString()
+
+            val response = gigApi.searchGig(
+                token = "Bearer $token",
+                query = query
+            )
+
+            if (response.successful) {
+                val gigs = response.data!!.map { it.toGig() }
+                emit(Resource.Success(gigs))
+            } else {
+                response.message?.let { msg ->
+                    emit(Resource.Error(UiText.DynamicString(msg)))
+                } ?: emit(Resource.Error(UiText.unknownError()))
+            }
+        } catch (e: HttpException) {
+            emit(Resource.Error(UiText.DynamicString(e.toString())))
+        } catch (e: Exception) {
+            emit(Resource.Error(UiText.DynamicString(e.toString())))
+        }
+    }.flowOn(Dispatchers.IO)
 }

@@ -30,4 +30,8 @@ interface IGigRepository {
     suspend fun getRecommendedGigs(
         latLng: LatLng,
     ): Flow<Resource<List<Gig>>>
+
+    suspend fun searchGig(
+        query: String
+    ): Flow<Resource<List<Gig>>>
 }
