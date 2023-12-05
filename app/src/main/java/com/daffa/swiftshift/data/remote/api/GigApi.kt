@@ -2,6 +2,7 @@ package com.daffa.swiftshift.data.remote.api
 
 import com.daffa.swiftshift.data.remote.response.BasicApiResponse
 import com.daffa.swiftshift.data.remote.dto.GigDto
+import com.daffa.swiftshift.data.remote.response.GigDetailResponse
 import com.daffa.swiftshift.util.Constants
 import okhttp3.MultipartBody
 import retrofit2.http.GET
@@ -41,6 +42,12 @@ interface GigApi {
         @Header("Authorization") token: String,
         @Query("query") query: String
     ): BasicApiResponse<List<GigDto>>
+
+    @GET("/api/gig/detail")
+    suspend fun getGigDetail(
+        @Header("Authorization") token: String,
+        @Query("gigId") gigId: String
+    ): BasicApiResponse<GigDetailResponse>
 
     companion object {
         const val BASE_URL = Constants.BASE_URL

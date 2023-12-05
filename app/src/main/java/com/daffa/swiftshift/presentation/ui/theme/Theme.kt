@@ -18,7 +18,7 @@ import androidx.core.view.WindowCompat
 //)
 
 private val LightColorScheme = lightColorScheme(
-    primary = Primary500,
+    primary = Primary700,
     secondary = Slate300,
     tertiary = Primary100,
     background = Slate25,

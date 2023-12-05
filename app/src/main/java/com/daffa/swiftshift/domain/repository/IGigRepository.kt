@@ -3,6 +3,7 @@ package com.daffa.swiftshift.domain.repository
 import androidx.paging.PagingData
 import com.daffa.swiftshift.data.local.entity.GigEntity
 import com.daffa.swiftshift.data.remote.request.CreateGigRequest
+import com.daffa.swiftshift.data.remote.response.GigDetailResponse
 import com.daffa.swiftshift.domain.model.Gig
 import com.daffa.swiftshift.util.Resource
 import com.daffa.swiftshift.util.SimpleResource
@@ -31,4 +32,8 @@ interface IGigRepository {
     suspend fun searchGig(
         query: String
     ): Flow<Resource<List<Gig>>>
+
+    suspend fun getGigDetail(
+        gigId: String
+    ): Flow<Resource<GigDetailResponse>>
 }

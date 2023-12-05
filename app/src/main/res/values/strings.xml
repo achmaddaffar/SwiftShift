@@ -98,4 +98,11 @@
     <string name="curriculum_vitae">Curriculum Vitae</string>
     <string name="logout">Logout</string>
     <string name="search_gigs">Search Gigs</string>
+    <string name="gig_detail">Gig Detail</string>
+    <string name="salary">Salary</string>
+    <string name="date">Date</string>
+    <string name="registrant_quota">Registrant Quota</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="apply_for_gig">Apply for Gig</string>
 </resources>

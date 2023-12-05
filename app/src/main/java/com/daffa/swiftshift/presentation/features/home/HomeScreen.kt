@@ -291,7 +291,9 @@ fun HomeScreen(
                                 .fillMaxWidth()
                                 .padding(horizontal = SpaceMedium)
                                 .height(225.dp)
-                        )
+                        ) {
+                            navController.navigate(Screen.GigDetailScreen.withArgs(nearbyGigsPreview[index].id))
+                        }
                         Spacer(modifier = Modifier.height(SpaceMedium))
                     }
                 }

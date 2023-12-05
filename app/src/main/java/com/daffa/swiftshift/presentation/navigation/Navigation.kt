@@ -10,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.daffa.swiftshift.presentation.features.gig_detail.GigDetailScreen
 import com.daffa.swiftshift.presentation.features.history.HistoryScreen
 import com.daffa.swiftshift.presentation.features.home.HomeScreen
 import com.daffa.swiftshift.presentation.features.login.LoginScreen
@@ -20,6 +21,7 @@ import com.daffa.swiftshift.presentation.features.register.RegisterScreen
 import com.daffa.swiftshift.presentation.features.search.SearchScreen
 import com.daffa.swiftshift.presentation.features.splash.SplashScreen
 import com.daffa.swiftshift.presentation.util.NavArguments
+import com.daffa.swiftshift.util.Constants.Empty
 
 @RequiresApi(Build.VERSION_CODES.S)
 @Composable
@@ -93,6 +95,22 @@ fun Navigation(
             )
         ) {
 
+        }
+        composable(
+            "{${Screen.NearbyGigsScreen.route}}/{${NavArguments.NAV_GIG_ID}}",
+            arguments = listOf(
+                navArgument(NavArguments.NAV_GIG_ID) {
+                    type = NavType.StringType
+                    defaultValue = String.Empty
+                }
+            )
+        ) {
+            val gigId = it.arguments?.getString(NavArguments.NAV_GIG_ID) ?: String.Empty
+            GigDetailScreen(
+                navController = navController,
+                gigId = gigId,
+                scaffoldState = scaffoldState
+            )
         }
     }
 }

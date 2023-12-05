@@ -86,11 +86,24 @@ val Typography = Typography(
 )
 
 object Type {
+    fun body1Light() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_light)),
+        fontWeight = FontWeight.Light,
+        fontSize = 22.sp
+    )
+
     fun body1Bold() = TextStyle(
         fontFamily = FontFamily(Font(R.font.poppins_bold)),
         fontWeight = FontWeight.Bold,
         fontSize = 22.sp
     )
+
+    fun body2Light() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_light)),
+        fontWeight = FontWeight.Light,
+        fontSize = 18.sp
+    )
+
     fun body2Regular() = TextStyle(
         fontFamily = FontFamily(Font(R.font.poppins_regular)),
         fontWeight = FontWeight.Normal,
@@ -149,6 +162,18 @@ object Type {
         fontFamily = FontFamily(Font(R.font.poppins_light)),
         fontWeight = FontWeight.Light,
         fontSize = 14.sp
+    )
+
+    fun body4SemiBold() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_semibold)),
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp
+    )
+
+    fun body5Light() = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_light)),
+        fontWeight = FontWeight.Light,
+        fontSize = 12.sp
     )
 
     fun body5Regular() = TextStyle(

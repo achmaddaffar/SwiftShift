@@ -10,6 +10,7 @@ import com.daffa.swiftshift.data.local.entity.GigEntity
 import com.daffa.swiftshift.data.local.mapper.toGig
 import com.daffa.swiftshift.data.remote.api.GigApi
 import com.daffa.swiftshift.data.remote.request.CreateGigRequest
+import com.daffa.swiftshift.data.remote.response.GigDetailResponse
 import com.daffa.swiftshift.data.remote_mediator.GigRemoteMediator
 import com.daffa.swiftshift.domain.model.Gig
 import com.daffa.swiftshift.domain.repository.IGigRepository
@@ -132,6 +133,35 @@ class GigRepository(
 
             if (response.successful) {
                 val gigs = response.data!!.map { it.toGig() }
+                emit(Resource.Success(gigs))
+            } else {
+                response.message?.let { msg ->
+                    emit(Resource.Error(UiText.DynamicString(msg)))
+                } ?: emit(Resource.Error(UiText.unknownError()))
+            }
+        } catch (e: HttpException) {
+            emit(Resource.Error(UiText.DynamicString(e.toString())))
+        } catch (e: Exception) {
+            emit(Resource.Error(UiText.DynamicString(e.toString())))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun getGigDetail(
+        gigId: String
+    ): Flow<Resource<GigDetailResponse>> = flow {
+        emit(Resource.Loading())
+
+        try {
+            val token =
+                sharedPreferences.getString(Constants.KEY_JWT_TOKEN, String.Empty).toString()
+
+            val response = gigApi.getGigDetail(
+                token = "Bearer $token",
+                gigId = gigId
+            )
+
+            if (response.successful) {
+                val gigs = response.data!!
                 emit(Resource.Success(gigs))
             } else {
                 response.message?.let { msg ->
