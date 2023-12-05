@@ -70,7 +70,7 @@ class GigRepository(
                 latitude = latLng.latitude,
                 longitude = latLng.longitude,
                 page = 0,
-                pageSize = 5
+                pageSize = 10
             )
             if (response.successful) {
                 val gigs = response.data!!.map { it.toGig() }

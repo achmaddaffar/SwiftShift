@@ -9,6 +9,8 @@ sealed class Screen(val route: String) {
     data object SearchScreen: Screen("search_screen")
     data object HistoryScreen: Screen("history_screen")
     data object ProfileScreen: Screen("profile_screen")
+    data object NearbyGigsScreen: Screen("nearby_gigs_screen/")
+    data object RecommendedGigsScreen: Screen("recommended_gigs_screen/")
 
     fun withArgs(vararg args: String) = buildString {
         append(route)

@@ -44,12 +44,14 @@ import com.daffa.swiftshift.presentation.features.home.component.NearbyGigCard
 import com.daffa.swiftshift.presentation.features.home.component.NearbyGigCardShimmer
 import com.daffa.swiftshift.presentation.features.home.component.RecommendedGigCard
 import com.daffa.swiftshift.presentation.features.home.component.RecommendedGigCardShimmer
+import com.daffa.swiftshift.presentation.navigation.Screen
 import com.daffa.swiftshift.presentation.ui.theme.Primary600
 import com.daffa.swiftshift.presentation.ui.theme.Slate600
 import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
 import com.daffa.swiftshift.presentation.ui.theme.SpaceMedium
 import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
+import com.daffa.swiftshift.presentation.util.NavArguments
 import com.daffa.swiftshift.presentation.util.permission.PermissionEvent
 import com.daffa.swiftshift.util.Resource
 import com.daffa.swiftshift.util.hasLocationPermission
@@ -259,7 +261,12 @@ fun HomeScreen(
                                 style = Type.body5Regular(),
                                 color = Slate600,
                                 modifier = Modifier.clickable {
-
+                                    navController.navigate(
+                                        Screen.NearbyGigsScreen.withArgs(
+                                            currentLoc.latitude.toString(),
+                                            currentLoc.longitude.toString()
+                                        )
+                                    )
                                 }
                             )
                         }
