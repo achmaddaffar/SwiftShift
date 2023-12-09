@@ -10,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.daffa.swiftshift.presentation.features.create_gig.CreateGigScreen
 import com.daffa.swiftshift.presentation.features.gig_detail.GigDetailScreen
 import com.daffa.swiftshift.presentation.features.history.HistoryScreen
 import com.daffa.swiftshift.presentation.features.home.HomeScreen
@@ -111,6 +112,10 @@ fun Navigation(
                 gigId = gigId,
                 scaffoldState = scaffoldState
             )
+        }
+
+        composable(Screen.CreateGigScreen.route) {
+            CreateGigScreen(navController = navController)
         }
     }
 }

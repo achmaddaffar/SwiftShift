@@ -7,6 +7,7 @@ import com.daffa.swiftshift.domain.repository.IAuthRepository
 import com.daffa.swiftshift.util.Constants
 import com.daffa.swiftshift.util.Constants.Empty
 import com.daffa.swiftshift.util.Resource
+import com.daffa.swiftshift.util.Role
 import com.daffa.swiftshift.util.SimpleResource
 import com.daffa.swiftshift.util.UiText
 import kotlinx.coroutines.flow.Flow
@@ -34,5 +35,13 @@ class AuthRepository(
         sharedPreferences.edit()
             .clear()
             .apply()
+    }
+
+    override fun getRole(): Role? {
+        return when(sharedPreferences.getString(Constants.KEY_ROLE, String.Empty)) {
+            Constants.GIG_WORKER -> Role.GigWorker
+            Constants.GIG_PROVIDER -> Role.GigProvider
+            else -> null
+        }
     }
 }

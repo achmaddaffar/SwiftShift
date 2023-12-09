@@ -36,16 +36,4 @@ object GigProviderModule {
         gson: Gson,
         sharedPreferences: SharedPreferences,
     ): IGigProviderRepository = GigProviderRepository(api, gson, sharedPreferences)
-
-
-    @Provides
-    fun provideRegisterGigProviderUseCase(
-        repository: IGigProviderRepository,
-    ): RegisterGigProviderUseCase = RegisterGigProviderUseCase(repository)
-
-
-    @Provides
-    fun provideLoginGigProviderUseCase(
-        repository: IGigProviderRepository,
-    ): LoginGigProviderUseCase = LoginGigProviderUseCase(repository)
 }

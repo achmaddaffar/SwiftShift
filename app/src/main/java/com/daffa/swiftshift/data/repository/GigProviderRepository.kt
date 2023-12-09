@@ -6,8 +6,10 @@ import androidx.core.net.toFile
 import com.daffa.swiftshift.data.remote.api.GigProviderApi
 import com.daffa.swiftshift.data.remote.request.CreateGigWorkerRequest
 import com.daffa.swiftshift.data.remote.request.LoginRequest
+import com.daffa.swiftshift.data.remote.response.GigProviderResponse
 import com.daffa.swiftshift.domain.repository.IGigProviderRepository
 import com.daffa.swiftshift.util.Constants
+import com.daffa.swiftshift.util.Constants.Empty
 import com.daffa.swiftshift.util.Resource
 import com.daffa.swiftshift.util.SimpleResource
 import com.daffa.swiftshift.util.UiText
@@ -95,9 +97,34 @@ class GigProviderRepository(
                     sharedPreferences.edit()
                         .putString(Constants.KEY_JWT_TOKEN, token)
                         .putString(Constants.KEY_ROLE, Constants.GIG_PROVIDER)
+                        .putString(Constants.KEY_EMAIL, email)
                         .apply()
                 }
                 emit(Resource.Success(Unit))
+            } else {
+                response.message?.let { msg ->
+                    emit(Resource.Error(UiText.DynamicString(msg)))
+                } ?: emit(Resource.Error(UiText.unknownError()))
+            }
+        } catch (e: HttpException) {
+            emit(Resource.Error(UiText.DynamicString(e.toString())))
+        } catch (e: Exception) {
+            emit(Resource.Error(UiText.DynamicString(e.toString())))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun getProfileByEmail(): Flow<Resource<GigProviderResponse>> = flow {
+        emit(Resource.Loading())
+        try {
+            val token =
+                sharedPreferences.getString(Constants.KEY_JWT_TOKEN, String.Empty).toString()
+            val email = sharedPreferences.getString(Constants.KEY_EMAIL, String.Empty).toString()
+            val response = api.getProfileByEmail(
+                token = "Bearer $token",
+                email = email
+            )
+            if (response.successful) {
+                emit(Resource.Success(response.data))
             } else {
                 response.message?.let { msg ->
                     emit(Resource.Error(UiText.DynamicString(msg)))

@@ -33,8 +33,8 @@ class LocationRepository @Inject constructor(
             return@callbackFlow
         }
 
-        val request = LocationRequest.Builder(100000L)
-            .setIntervalMillis(100000L)
+        val request = LocationRequest.Builder(300000L)
+            .setIntervalMillis(300000L)
             .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
             .build()
 

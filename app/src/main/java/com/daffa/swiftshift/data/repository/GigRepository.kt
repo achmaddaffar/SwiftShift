@@ -1,6 +1,8 @@
 package com.daffa.swiftshift.data.repository
 
 import android.content.SharedPreferences
+import android.net.Uri
+import androidx.core.net.toFile
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -20,22 +22,65 @@ import com.daffa.swiftshift.util.Resource
 import com.daffa.swiftshift.util.SimpleResource
 import com.daffa.swiftshift.util.UiText
 import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
 class GigRepository(
     private val gigApi: GigApi,
     private val gigDb: GigDatabase,
+    private val gson: Gson,
     private val sharedPreferences: SharedPreferences,
 ) : IGigRepository {
-    override suspend fun createGig(request: CreateGigRequest): Flow<SimpleResource> =
-        flow<SimpleResource> {
+    override suspend fun createGig(
+        request: CreateGigRequest,
+        imageUri: Uri?,
+    ): Flow<SimpleResource> = flow {
+        emit(Resource.Loading())
 
-        }.flowOn(Dispatchers.IO)
+        try {
+            val token =
+                sharedPreferences.getString(Constants.KEY_JWT_TOKEN, String.Empty).toString()
+
+            val file = imageUri?.toFile()
+
+            val response = file?.let {
+                gigApi.createGig(
+                    postData = MultipartBody.Part
+                        .createFormData(
+                            name = Constants.CREATE_GIG_PART_DATA,
+                            value = gson.toJson(request)
+                        ),
+                    postImage = MultipartBody.Part
+                        .createFormData(
+                            name = Constants.PROFILE_PICTURE_DATA,
+                            filename = it.name,
+                            body = it.asRequestBody()
+                        )
+                )
+            }
+
+            if (response != null) {
+                if (response.successful) {
+                    emit(Resource.Success(Unit))
+                } else {
+                    response.message?.let { msg ->
+                        emit(Resource.Error(UiText.DynamicString(msg)))
+                    } ?: emit(Resource.Error(UiText.unknownError()))
+                }
+            }
+        } catch (e: HttpException) {
+            emit(Resource.Error(UiText.DynamicString(e.toString())))
+        } catch (e: Exception) {
+            emit(Resource.Error(UiText.DynamicString(e.toString())))
+        }
+    }.flowOn(Dispatchers.IO)
 
     override fun getNearbyGigs(
         latitude: Double,
@@ -118,7 +163,7 @@ class GigRepository(
     }.flowOn(Dispatchers.IO)
 
     override suspend fun searchGig(
-        query: String
+        query: String,
     ): Flow<Resource<List<Gig>>> = flow {
         emit(Resource.Loading())
 
@@ -147,7 +192,7 @@ class GigRepository(
     }.flowOn(Dispatchers.IO)
 
     override suspend fun getGigDetail(
-        gigId: String
+        gigId: String,
     ): Flow<Resource<GigDetailResponse>> = flow {
         emit(Resource.Loading())
 

@@ -1,5 +1,6 @@
 package com.daffa.swiftshift.domain.repository
 
+import android.net.Uri
 import androidx.paging.PagingData
 import com.daffa.swiftshift.data.local.entity.GigEntity
 import com.daffa.swiftshift.data.remote.request.CreateGigRequest
@@ -14,6 +15,7 @@ interface IGigRepository {
 
     suspend fun createGig(
         request: CreateGigRequest,
+        imageUri: Uri?
     ): Flow<SimpleResource>
 
     fun getNearbyGigs(

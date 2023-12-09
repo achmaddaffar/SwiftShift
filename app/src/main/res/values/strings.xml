@@ -105,4 +105,15 @@
     <string name="description">Description</string>
     <string name="location">Location</string>
     <string name="apply_for_gig">Apply for Gig</string>
+    <string name="add_gig">Add Gig</string>
+    <string name="post_a_gig">Post a Gig</string>
+    <string name="enter_gig_title">Enter Gig Title</string>
+    <string name="gig_title">Gig Title</string>
+    <string name="image">Image</string>
+    <string name="insert_an_image">Insert an image</string>
+    <string name="enter_tag">Enter tag</string>
+    <string name="tags">Tags</string>
+    <string name="enter_max_applier">Enter max applier</string>
+    <string name="max_applier">Max Applier</string>
+    <string name="post_gig">Post Gig</string>
 </resources>

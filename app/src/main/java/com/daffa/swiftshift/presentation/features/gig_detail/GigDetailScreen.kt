@@ -147,7 +147,7 @@ fun GigDetailScreen(
                 }
             }
             Text(
-                text = "ALAMAT",
+                text = "Malang",
                 style = Type.body2Light(),
                 color = Color.Black
             )

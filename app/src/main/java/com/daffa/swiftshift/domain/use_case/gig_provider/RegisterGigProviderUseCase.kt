@@ -4,8 +4,9 @@ import android.net.Uri
 import com.daffa.swiftshift.domain.repository.IGigProviderRepository
 import com.daffa.swiftshift.util.SimpleResource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class RegisterGigProviderUseCase(
+class RegisterGigProviderUseCase @Inject constructor(
     private val repository: IGigProviderRepository
 ) {
 

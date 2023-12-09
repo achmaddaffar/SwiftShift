@@ -1,6 +1,7 @@
 package com.daffa.swiftshift.util
 
 import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
 import com.daffa.swiftshift.util.Constants.Empty

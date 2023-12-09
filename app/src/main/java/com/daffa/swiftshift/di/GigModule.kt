@@ -9,6 +9,7 @@ import com.daffa.swiftshift.data.repository.GigRepository
 import com.daffa.swiftshift.domain.repository.IGigRepository
 import com.daffa.swiftshift.domain.use_case.gig.GetNearbyGigsUseCase
 import com.daffa.swiftshift.util.Constants
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,6 +48,7 @@ object GigModule {
     fun provideGigRepository(
         gigApi: GigApi,
         gigDb: GigDatabase,
-        sharedPreferences: SharedPreferences
-    ): IGigRepository = GigRepository(gigApi, gigDb, sharedPreferences)
+        gson: Gson,
+        sharedPreferences: SharedPreferences,
+    ): IGigRepository = GigRepository(gigApi, gigDb, gson, sharedPreferences)
 }

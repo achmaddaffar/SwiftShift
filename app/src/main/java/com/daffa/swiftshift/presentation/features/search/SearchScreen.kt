@@ -118,6 +118,7 @@ fun SearchScreen(
                             .height(225.dp)
                             .padding(horizontal = SpaceMedium)
                     )
+                    Spacer(modifier = Modifier.height(SpaceMedium))
                 }
         }
     }

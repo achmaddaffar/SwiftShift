@@ -22,6 +22,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -46,6 +49,7 @@ import com.daffa.swiftshift.presentation.features.home.component.RecommendedGigC
 import com.daffa.swiftshift.presentation.features.home.component.RecommendedGigCardShimmer
 import com.daffa.swiftshift.presentation.navigation.Screen
 import com.daffa.swiftshift.presentation.ui.theme.Primary600
+import com.daffa.swiftshift.presentation.ui.theme.Primary700
 import com.daffa.swiftshift.presentation.ui.theme.Slate600
 import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
 import com.daffa.swiftshift.presentation.ui.theme.SpaceMedium
@@ -54,6 +58,7 @@ import com.daffa.swiftshift.presentation.ui.theme.Type
 import com.daffa.swiftshift.presentation.util.NavArguments
 import com.daffa.swiftshift.presentation.util.permission.PermissionEvent
 import com.daffa.swiftshift.util.Resource
+import com.daffa.swiftshift.util.Role
 import com.daffa.swiftshift.util.hasLocationPermission
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
@@ -71,8 +76,10 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
 
     val gigWorker by viewModel.gigWorker
+    val gigProvider by viewModel.gigProvider
     val recommendedGigs by viewModel.recommendedGigs
     val nearbyGigsPreview by viewModel.nearbyGigsPreview
+    val role = viewModel.getRole()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val permissionState = rememberMultiplePermissionsState(
@@ -152,8 +159,6 @@ fun HomeScreen(
                 state.data?.latitude ?: 0.0,
                 state.data?.longitude ?: 0.0
             )
-            println("latitude: ${currentLoc.latitude}")
-            println("longitude: ${currentLoc.longitude}")
 
             viewModel.getProfile()
             viewModel.getRecommendedGigs(currentLoc)
@@ -166,14 +171,24 @@ fun HomeScreen(
                     .fillMaxSize()
             ) {
                 item {
-                    HomeTopBanner(
-                        userFullName = gigWorker?.fullName,
-                        profilePictureUrl = viewModel.gigWorker.value?.profileImageUrl,
-                        locationName = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(SpaceMedium)
-                    )
+                    if (role == Role.GigWorker)
+                        HomeTopBanner(
+                            userFullName = gigWorker?.fullName,
+                            profilePictureUrl = gigProvider?.profileImageUrl,
+                            locationName = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(SpaceMedium)
+                        )
+                    else
+                        HomeTopBanner(
+                            userFullName = gigProvider?.fullName,
+                            profilePictureUrl = gigProvider?.profileImageUrl,
+                            locationName = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(SpaceMedium)
+                        )
                     Spacer(modifier = Modifier.height(SpaceLarge))
                 }
                 item {
@@ -295,9 +310,32 @@ fun HomeScreen(
                             navController.navigate(Screen.GigDetailScreen.withArgs(nearbyGigsPreview[index].id))
                         }
                         Spacer(modifier = Modifier.height(SpaceMedium))
+                        if (index == nearbyGigsPreview.size - 1)
+                            Spacer(modifier = Modifier.height(SpaceLarge * 2))
                     }
                 }
             }
+
+            if (role == Role.GigProvider)
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    FloatingActionButton(
+                        onClick = {
+                            navController.navigate(Screen.CreateGigScreen.route)
+                        },
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(SpaceLarge),
+                        containerColor = Primary700
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_add_24),
+                            contentDescription = stringResource(R.string.add_gig),
+                            tint = Color.White
+                        )
+                    }
+                }
         }
     }
 }
