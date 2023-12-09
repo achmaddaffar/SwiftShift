@@ -129,7 +129,8 @@ fun GigDetailScreen(
                 Text(
                     text = it.title,
                     style = Type.heading5SemiBold(),
-                    color = Color.Black
+                    color = Color.Black,
+                    textAlign = TextAlign.Center
                 )
             } ?: kotlin.run {
                 Box(
@@ -345,7 +346,7 @@ fun GigDetailScreen(
                     }
                 )
             }
-            Divider(color = Primary700)
+            Divider(color = HintGray)
             Spacer(modifier = Modifier.height(SpaceMedium))
             HorizontalPager(
                 state = pagerState,

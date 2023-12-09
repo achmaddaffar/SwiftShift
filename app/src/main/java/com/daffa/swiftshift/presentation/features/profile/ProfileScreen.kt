@@ -1,6 +1,5 @@
 package com.daffa.swiftshift.presentation.features.profile
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,7 +26,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -44,6 +42,7 @@ import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
 import com.daffa.swiftshift.presentation.util.ObserveAsEvents
 import com.daffa.swiftshift.util.DateUtil
+import com.daffa.swiftshift.util.Role
 import com.daffa.swiftshift.util.asString
 import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
@@ -56,7 +55,11 @@ fun ProfileScreen(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val state by viewModel.state
+
+    val role = viewModel.getRole()
+    val isLoading by viewModel.isLoading
+    val gigWorker by viewModel.gigWorker
+    val gigProvider by viewModel.gigProvider
 
     ObserveAsEvents(flow = viewModel.uiFlow) { event ->
         when (event) {
@@ -99,15 +102,26 @@ fun ProfileScreen(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            SubcomposeAsyncImage(
-                model = state.gigWorker?.profileImageUrl,
-                contentDescription = stringResource(id = R.string.profile_picture),
-                contentScale = ContentScale.Crop,
-                loading = { CircularProgressIndicator() },
-                modifier = Modifier
-                    .size(150.dp)
-                    .clip(CircleShape)
-            )
+            if (role == Role.GigWorker)
+                SubcomposeAsyncImage(
+                    model = gigWorker?.profileImageUrl,
+                    contentDescription = stringResource(id = R.string.profile_picture),
+                    contentScale = ContentScale.Crop,
+                    loading = { CircularProgressIndicator() },
+                    modifier = Modifier
+                        .size(150.dp)
+                        .clip(CircleShape)
+                )
+            else
+                SubcomposeAsyncImage(
+                    model = gigProvider?.profileImageUrl,
+                    contentDescription = stringResource(id = R.string.profile_picture),
+                    contentScale = ContentScale.Crop,
+                    loading = { CircularProgressIndicator() },
+                    modifier = Modifier
+                        .size(150.dp)
+                        .clip(CircleShape)
+                )
 
             // Add a horizontal space between the image and the column
             Spacer(modifier = Modifier.height(SpaceSmall))
@@ -119,7 +133,7 @@ fun ProfileScreen(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            if (state.isLoading)
+            if (isLoading)
                 Box(
                     modifier = Modifier
                         .height(SpaceLarge)
@@ -133,14 +147,24 @@ fun ProfileScreen(
                             .background(HintGray)
                     )
                 }
-            else
-                Text(
-                    text = state.gigWorker?.fullName.toString(),
-                    color = Color.Black,
-                    modifier = Modifier.padding(all = 5.dp),
-                    style = Type.heading4SemiBold(),
-                    textAlign = TextAlign.Center
-                )
+            else {
+                if (role == Role.GigWorker)
+                    Text(
+                        text = gigWorker?.fullName.toString(),
+                        color = Color.Black,
+                        modifier = Modifier.padding(all = 5.dp),
+                        style = Type.heading4SemiBold(),
+                        textAlign = TextAlign.Center
+                    )
+                else
+                    Text(
+                        text = gigProvider?.fullName.toString(),
+                        color = Color.Black,
+                        modifier = Modifier.padding(all = 5.dp),
+                        style = Type.heading4SemiBold(),
+                        textAlign = TextAlign.Center
+                    )
+            }
             // Add a vertical space between the author and message texts
             Spacer(modifier = Modifier.height(4.dp))
         }
@@ -163,8 +187,10 @@ fun ProfileScreen(
                     textAlign = TextAlign.Center
 
                 )
-                val totalIncome = state.gigWorker?.totalIncome
-                if (state.isLoading)
+                val totalIncome =
+                    if (role == Role.GigWorker) gigWorker?.totalIncome else gigProvider?.totalIncome
+
+                if (isLoading)
                     Box(
                         modifier = Modifier
                             .height(SpaceLarge)
@@ -199,9 +225,10 @@ fun ProfileScreen(
                     style = Type.body4Regular(),
                     textAlign = TextAlign.Center
                 )
-                val date = state.gigWorker?.joiningDate?.let {
-                    DateUtil.convertMillisecondToDateFormat(it)
-                }
+                val date =
+                    (if (role == Role.GigWorker) gigWorker?.joiningDate else gigProvider?.joiningDate)?.let {
+                        DateUtil.convertMillisecondToDateFormat(it)
+                    }
                 Text(
                     text = date.toString(),
                     color = Color.Black,
@@ -231,7 +258,7 @@ fun ProfileScreen(
         }
         // Email Field
         Row {
-            if (state.isLoading)
+            if (isLoading)
                 Box(
                     modifier = Modifier
                         .height(SpaceLarge)
@@ -245,13 +272,22 @@ fun ProfileScreen(
                             .background(HintGray)
                     )
                 }
-            else
-                Text(
-                    text = state.gigWorker?.email.toString(),
-                    color = Color.Black,
-                    modifier = Modifier.padding(all = 3.dp),
-                    style = Type.body3Regular(),
-                )
+            else {
+                if (role == Role.GigWorker)
+                    Text(
+                        text = gigWorker?.email.toString(),
+                        color = Color.Black,
+                        modifier = Modifier.padding(all = 3.dp),
+                        style = Type.body3Regular(),
+                    )
+                else
+                    Text(
+                        text = gigProvider?.email.toString(),
+                        color = Color.Black,
+                        modifier = Modifier.padding(all = 3.dp),
+                        style = Type.body3Regular(),
+                    )
+            }
         }
         // Birth Date
         Row {
@@ -282,7 +318,7 @@ fun ProfileScreen(
         }
         // Gender Field
         Row {
-            if (state.isLoading)
+            if (isLoading)
                 Box(
                     modifier = Modifier
                         .height(SpaceLarge)
@@ -296,18 +332,28 @@ fun ProfileScreen(
                             .background(HintGray)
                     )
                 }
-            else
-                Text(
-                    text = state.gigWorker?.gender ?: "-",
-                    color = Color.Black,
-                    modifier = Modifier.padding(all = 3.dp),
-                    style = Type.body3Regular(),
-                )
+            else {
+                if (role == Role.GigWorker)
+                    Text(
+                        text = gigWorker?.gender ?: "-",
+                        color = Color.Black,
+                        modifier = Modifier.padding(all = 3.dp),
+                        style = Type.body3Regular(),
+                    )
+                else
+                    Text(
+                        text = gigProvider?.gender ?: "-",
+                        color = Color.Black,
+                        modifier = Modifier.padding(all = 3.dp),
+                        style = Type.body3Regular(),
+                    )
+            }
+
         }
         // Highest Education
         Row {
             Text(
-                text = "Highest Education",
+                text = stringResource(R.string.highest_education),
                 color = Color.Black,
                 modifier = Modifier.padding(all = 3.dp),
                 style = Type.body3Bold(),
@@ -315,7 +361,7 @@ fun ProfileScreen(
         }
         // Highest Education
         Row {
-            if (state.isLoading)
+            if (isLoading)
                 Box(
                     modifier = Modifier
                         .height(SpaceLarge)
@@ -329,13 +375,22 @@ fun ProfileScreen(
                             .background(HintGray)
                     )
                 }
-            else
-                Text(
-                    text = state.gigWorker?.highestEducation ?: "-",
-                    color = Color.Black,
-                    modifier = Modifier.padding(all = 3.dp),
-                    style = Type.body3Regular(),
-                )
+            else {
+                if (role == Role.GigWorker)
+                    Text(
+                        text = gigWorker?.highestEducation ?: "-",
+                        color = Color.Black,
+                        modifier = Modifier.padding(all = 3.dp),
+                        style = Type.body3Regular(),
+                    )
+                else
+                    Text(
+                        text = gigProvider?.highestEducation ?: "-",
+                        color = Color.Black,
+                        modifier = Modifier.padding(all = 3.dp),
+                        style = Type.body3Regular(),
+                    )
+            }
         }
         // Curriculum Vitae
         Row {
@@ -361,219 +416,6 @@ fun ProfileScreen(
                 text = stringResource(R.string.logout),
                 style = Type.body3Bold(),
                 color = CoralRed
-            )
-        }
-    }
-}
-
-@Composable
-fun OLD_ProfileScreen() {
-    // Edit
-    Row(
-        horizontalArrangement = Arrangement.End,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(all = 15.dp),
-    ) {
-        Text(
-            text = "Edit",
-            color = Color.Black,
-            modifier = Modifier.padding(all = 5.dp),
-            style = Type.body2Regular(),
-        )
-    }
-    // Add padding around our message
-    Column(
-        modifier = Modifier
-            .padding(all = 8.dp)
-            .fillMaxWidth(),
-
-        ) {
-        //Image Profile
-        Row(
-            modifier = Modifier
-                .padding(top = 50.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Image(
-                painter = painterResource(R.drawable.goceng),
-                contentDescription = "Contact profile picture",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    // Set image size to 147 dp
-                    .size(147.dp)
-                    // Clip image to be shaped as a circle
-                    .clip(CircleShape)
-            )
-
-            // Add a horizontal space between the image and the column
-            Spacer(modifier = Modifier.height(10.dp))
-
-        }
-        //Name Profile
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "John Doe",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 5.dp),
-                style = Type.heading4SemiBold(),
-                textAlign = TextAlign.Center
-            )
-            // Add a vertical space between the author and message texts
-            Spacer(modifier = Modifier.height(4.dp))
-        }
-        //Total and Joining Row
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 10.dp)
-        ) {
-            //Total Income
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = "Total Income",
-                    color = Color.Black,
-                    modifier = Modifier.padding(all = 5.dp),
-                    style = Type.body4Regular(),
-                    textAlign = TextAlign.Center
-
-                )
-                Text(
-                    text = "Rp. 150.000,-",
-                    color = Color.Black,
-                    modifier = Modifier.padding(all = 5.dp),
-                    style = Type.body3SemiBold(),
-                    textAlign = TextAlign.Center
-                )
-            }
-            //Joining Date
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = "Joining Date",
-                    color = Color.Black,
-                    modifier = Modifier.padding(all = 5.dp),
-                    style = Type.body4Regular(),
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = "25 December 2022",
-                    color = Color.Black,
-                    modifier = Modifier.padding(all = 5.dp),
-                    style = Type.body3SemiBold(),
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
-        //Bio Data
-        Row {
-            Text(
-                text = "Bio Data",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 5.dp),
-                style = Type.heading5SemiBold(),
-            )
-
-        }
-        //Email
-        Row {
-            Text(
-                text = "Email",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 3.dp),
-                style = Type.body3Bold(),
-            )
-        }
-        // Email Field
-        Row {
-            Text(
-                text = "john.doe@example.com",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 3.dp),
-                style = Type.body3Regular(),
-            )
-        }
-        // Birth Date
-        Row {
-            Text(
-                text = "Birth Date",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 3.dp),
-                style = Type.body3Bold(),
-            )
-        }
-        // BIrth Date Field
-        Row {
-            Text(
-                text = "01/01/1990",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 3.dp),
-                style = Type.body3Regular(),
-            )
-        }
-        // Gender
-        Row {
-            Text(
-                text = "Gender",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 3.dp),
-                style = Type.body3Bold(),
-            )
-        }
-        // Gender Field
-        Row {
-            Text(
-                text = "Male",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 3.dp),
-                style = Type.body3Regular(),
-            )
-        }
-        // Highest Education
-        Row {
-            Text(
-                text = "Highest Education",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 3.dp),
-                style = Type.body3Bold(),
-            )
-        }
-        // Highest Education
-        Row {
-            Text(
-                text = "Bachelor’s Degree",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 3.dp),
-                style = Type.body3Regular(),
-            )
-        }
-        // Curriculum Vitae
-        Row {
-            Text(
-                text = "Curriculum Vitae",
-                color = Color.Black,
-                modifier = Modifier.padding(all = 5.dp),
-                style = Type.heading5SemiBold(),
-            )
-        }
-
-        TextButton(
-            onClick = {
-
-            }
-        ) {
-            Text(
-                text = "Logout"
             )
         }
     }

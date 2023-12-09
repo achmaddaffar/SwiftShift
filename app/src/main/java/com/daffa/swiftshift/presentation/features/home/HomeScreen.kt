@@ -43,19 +43,17 @@ import com.daffa.swiftshift.R
 import com.daffa.swiftshift.presentation.component.RationaleAlert
 import com.daffa.swiftshift.presentation.features.home.component.AdCard
 import com.daffa.swiftshift.presentation.features.home.component.HomeTopBanner
-import com.daffa.swiftshift.presentation.features.home.component.NearbyGigCard
-import com.daffa.swiftshift.presentation.features.home.component.NearbyGigCardShimmer
-import com.daffa.swiftshift.presentation.features.home.component.RecommendedGigCard
-import com.daffa.swiftshift.presentation.features.home.component.RecommendedGigCardShimmer
+import com.daffa.swiftshift.presentation.component.NearbyGigCard
+import com.daffa.swiftshift.presentation.component.NearbyGigCardShimmer
+import com.daffa.swiftshift.presentation.component.RecommendedGigCard
+import com.daffa.swiftshift.presentation.component.RecommendedGigCardShimmer
 import com.daffa.swiftshift.presentation.navigation.Screen
-import com.daffa.swiftshift.presentation.ui.theme.Primary600
 import com.daffa.swiftshift.presentation.ui.theme.Primary700
 import com.daffa.swiftshift.presentation.ui.theme.Slate600
 import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
 import com.daffa.swiftshift.presentation.ui.theme.SpaceMedium
 import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
-import com.daffa.swiftshift.presentation.util.NavArguments
 import com.daffa.swiftshift.presentation.util.permission.PermissionEvent
 import com.daffa.swiftshift.util.Resource
 import com.daffa.swiftshift.util.Role
@@ -243,7 +241,9 @@ fun HomeScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(225.dp)
-                            )
+                            ) {
+                                navController.navigate(Screen.GigDetailScreen.withArgs(recommendedGigs[0].id))
+                            }
                         else
                             RecommendedGigCardShimmer(
                                 modifier = Modifier

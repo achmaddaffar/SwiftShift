@@ -28,7 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.daffa.swiftshift.R
 import com.daffa.swiftshift.presentation.component.BaseCardShimmer
-import com.daffa.swiftshift.presentation.features.home.component.NearbyGigCard
+import com.daffa.swiftshift.presentation.component.NearbyGigCard
 import com.daffa.swiftshift.presentation.ui.theme.IconSizeMedium
 import com.daffa.swiftshift.presentation.ui.theme.SpaceMedium
 import com.daffa.swiftshift.presentation.ui.theme.Type

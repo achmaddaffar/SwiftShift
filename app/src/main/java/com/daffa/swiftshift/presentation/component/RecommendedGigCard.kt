@@ -1,4 +1,4 @@
-package com.daffa.swiftshift.presentation.features.home.component
+package com.daffa.swiftshift.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,31 +20,32 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.daffa.swiftshift.R
 import com.daffa.swiftshift.domain.model.Gig
 import com.daffa.swiftshift.presentation.ui.theme.HintGray
-import com.daffa.swiftshift.presentation.ui.theme.Slate800
-import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
+import com.daffa.swiftshift.presentation.ui.theme.Primary600
+import com.daffa.swiftshift.presentation.ui.theme.Primary700
 import com.daffa.swiftshift.presentation.ui.theme.SpaceMedium
 import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
 import com.valentinilk.shimmer.shimmer
-import okhttp3.internal.format
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NearbyGigCard(
+fun RecommendedGigCard(
     gig: Gig,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     Card(
         modifier = modifier,
@@ -57,7 +58,7 @@ fun NearbyGigCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White)
+                    .background(Primary600)
                     .padding(SpaceMedium),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -80,13 +81,13 @@ fun NearbyGigCard(
                         contentDescription = stringResource(
                             R.string.duration_from_posted
                         ),
-                        tint = Slate800
+                        tint = Color.White
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "20h ago",
                         style = Type.body5Regular(),
-                        color = Slate800
+                        color = Color.White
                     )
                 }
             }
@@ -101,7 +102,12 @@ fun NearbyGigCard(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .alpha(0.2f)
+                        .drawWithCache {
+                            onDrawWithContent {
+                                drawContent()
+                                drawRect(Primary700, blendMode = BlendMode.Multiply)
+                            }
+                        }
                 )
                 Box(
                     modifier = Modifier
@@ -114,13 +120,15 @@ fun NearbyGigCard(
                         Text(
                             text = gig.title,
                             style = Type.body2Bold(),
-                            color = Color.Black
+                            color = Color.White,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
                         )
                         Spacer(modifier = Modifier.height(SpaceSmall))
                         Text(
                             text = gig.gigProviderName,
                             style = Type.body5Regular(),
-                            color = Color.Black
+                            color = Color.White
                         )
                     }
                     Row(
@@ -133,7 +141,7 @@ fun NearbyGigCard(
                         Text(
                             text = "Rp. ${gig.salary}",
                             style = Type.body5Bold(),
-                            color = Color.Black
+                            color = Color.White
                         )
                         Row(
                             verticalAlignment = Alignment.CenterVertically
@@ -141,13 +149,13 @@ fun NearbyGigCard(
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_location_pin),
                                 contentDescription = stringResource(R.string.gig_location),
-                                tint = Color.Black
+                                tint = Color.White
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = format("%.2f Km", gig.distance),
+                                text = "LOKASI",
                                 style = Type.body5Bold(),
-                                color = Color.Black
+                                color = Color.White
                             )
                         }
                     }
@@ -158,8 +166,8 @@ fun NearbyGigCard(
 }
 
 @Composable
-fun NearbyGigCardShimmer(
-    modifier: Modifier = Modifier
+fun RecommendedGigCardShimmer(
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
