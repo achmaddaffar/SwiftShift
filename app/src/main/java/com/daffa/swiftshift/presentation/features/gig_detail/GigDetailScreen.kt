@@ -266,7 +266,7 @@ fun GigDetailScreen(
                 Column(
                     modifier = Modifier
                         .background(Color.White)
-                        .padding(SpaceSmall),
+                        .padding(SpaceMedium),
                     verticalArrangement = Arrangement.spacedBy(SpaceSmall)
                 ) {
                     Text(

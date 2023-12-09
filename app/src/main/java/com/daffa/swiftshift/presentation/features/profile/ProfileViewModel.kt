@@ -44,8 +44,8 @@ class ProfileViewModel @Inject constructor(
         getProfile()
     }
 
-    fun getRole(): Role {
-        return getRoleUseCase()!!
+    fun getRole(): Role? {
+        return getRoleUseCase()
     }
 
     private fun getProfile() {
@@ -99,6 +99,16 @@ class ProfileViewModel @Inject constructor(
                             }
                         }
                     }
+                }
+            }
+
+            null -> {
+                viewModelScope.launch {
+                    channel.send(
+                        UiEvent.ShowSnackBar(
+                            UiText.StringResource(R.string.error_something_went_wrong)
+                        )
+                    )
                 }
             }
         }

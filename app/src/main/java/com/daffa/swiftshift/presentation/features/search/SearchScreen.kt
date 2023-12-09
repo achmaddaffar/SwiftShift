@@ -1,6 +1,7 @@
 package com.daffa.swiftshift.presentation.features.search
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -103,7 +104,6 @@ fun SearchScreen(
                     BaseCardShimmer(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = SpaceMedium)
                             .height(225.dp)
                     )
                     Spacer(modifier = Modifier.height(SpaceMedium))
@@ -115,7 +115,6 @@ fun SearchScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(225.dp)
-                            .padding(horizontal = SpaceMedium)
                     )
                     Spacer(modifier = Modifier.height(SpaceMedium))
                 }
