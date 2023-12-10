@@ -87,7 +87,7 @@ fun RegisterFifthPage(
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) {
-        cropActivityLauncher.launch(it)
+        it?.let { cropActivityLauncher.launch(it) }
     }
 
     ObserveAsEvents(flow = viewModel.eventFlow) { event ->

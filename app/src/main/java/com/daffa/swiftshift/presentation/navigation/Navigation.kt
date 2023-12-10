@@ -61,7 +61,7 @@ fun Navigation(
             HistoryScreen(navController = navController)
         }
         composable(
-            "${Screen.NearbyGigsScreen.route}/{${NavArguments.NAV_ARG_LATITUDE}}/{${NavArguments.NAV_ARG_LONGITUDE}}",
+            route = "${Screen.NearbyGigsScreen.route}/{${NavArguments.NAV_ARG_LATITUDE}}/{${NavArguments.NAV_ARG_LONGITUDE}}",
             arguments = listOf(
                 navArgument(NavArguments.NAV_ARG_LATITUDE) {
                     type = NavType.FloatType
@@ -98,7 +98,7 @@ fun Navigation(
 
         }
         composable(
-            "{${Screen.NearbyGigsScreen.route}}/{${NavArguments.NAV_GIG_ID}}",
+            route = "{${Screen.NearbyGigsScreen.route}}/{${NavArguments.NAV_GIG_ID}}",
             arguments = listOf(
                 navArgument(NavArguments.NAV_GIG_ID) {
                     type = NavType.StringType
@@ -114,8 +114,27 @@ fun Navigation(
             )
         }
 
-        composable(Screen.CreateGigScreen.route) {
-            CreateGigScreen(navController = navController)
+        composable(
+            route = "${Screen.CreateGigScreen.route}/{${NavArguments.NAV_ARG_LATITUDE}}/{${NavArguments.NAV_ARG_LONGITUDE}}",
+            arguments = listOf(
+                navArgument(NavArguments.NAV_ARG_LATITUDE) {
+                    type = NavType.FloatType
+                    defaultValue = 0.0
+                },
+                navArgument(NavArguments.NAV_ARG_LONGITUDE) {
+                    type = NavType.FloatType
+                    defaultValue = 0.0
+                }
+            )
+        ) {
+            val latitude = it.arguments?.getFloat(NavArguments.NAV_ARG_LATITUDE) ?: 0.0f
+            val longitude = it.arguments?.getFloat(NavArguments.NAV_ARG_LONGITUDE) ?: 0.0f
+            CreateGigScreen(
+                navController = navController,
+                scaffoldState = scaffoldState,
+                latitude = latitude.toDouble(),
+                longitude = longitude.toDouble()
+            )
         }
     }
 }

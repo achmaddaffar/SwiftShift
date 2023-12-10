@@ -117,4 +117,9 @@
     <string name="max_applier">Max Applier</string>
     <string name="post_gig">Post Gig</string>
     <string name="highest_education">Highest Education</string>
+    <string name="enter_salary">Enter salary</string>
+    <string name="enter_description">Enter description</string>
+    <string name="fill_due_date">Fill due date</string>
+    <string name="due_date">Due Date</string>
+    <string name="just_now">Just now</string>
 </resources>

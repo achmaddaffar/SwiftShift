@@ -33,7 +33,6 @@ import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
 import com.daffa.swiftshift.util.Constants.Empty
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SwiftShiftTextField(
     modifier: Modifier = Modifier,
@@ -41,10 +40,10 @@ fun SwiftShiftTextField(
     hint: String,
     label: String,
     labelColor: Color = Color.Black,
-    maxLength: Int = 40,
+    maxLength: Int = 50,
     error: String = String.Empty,
     textStyle: TextStyle = Type.body3Regular(),
-    singleLine: Boolean = true,
+    readonly: Boolean = false,
     maxLines: Int = 1,
     leadingIcon: ImageVector? = null,
     leadingIconColor: Color? = null,
@@ -89,7 +88,6 @@ fun SwiftShiftTextField(
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType
             ),
-            singleLine = singleLine,
             visualTransformation = if (!showPasswordToggle && isPasswordToggleDisplayed) PasswordVisualTransformation() else VisualTransformation.None,
             leadingIcon = if (leadingIcon != null) {
                 {
@@ -124,14 +122,16 @@ fun SwiftShiftTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .border(1.dp, Color.Black, RoundedCornerShape(12.dp)),
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = fieldColor,
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = fieldColor,
+                unfocusedContainerColor = fieldColor,
+                disabledContainerColor = fieldColor,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
-                errorIndicatorColor = Color.Transparent
+                errorIndicatorColor = Color.Transparent,
             ),
-
+            readOnly = readonly
         )
         if (error.isNotEmpty()) {
             Text(

@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,14 +32,12 @@ import com.daffa.swiftshift.R
 import com.daffa.swiftshift.domain.model.Gig
 import com.daffa.swiftshift.presentation.ui.theme.HintGray
 import com.daffa.swiftshift.presentation.ui.theme.Slate800
-import com.daffa.swiftshift.presentation.ui.theme.SpaceLarge
 import com.daffa.swiftshift.presentation.ui.theme.SpaceMedium
 import com.daffa.swiftshift.presentation.ui.theme.SpaceSmall
 import com.daffa.swiftshift.presentation.ui.theme.Type
 import com.valentinilk.shimmer.shimmer
 import okhttp3.internal.format
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NearbyGigCard(
     gig: Gig,
@@ -85,7 +82,7 @@ fun NearbyGigCard(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "20h ago",
+                        text = stringResource(R.string.just_now),
                         style = Type.body5Regular(),
                         color = Slate800
                     )

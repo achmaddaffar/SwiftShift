@@ -173,7 +173,7 @@ fun HomeScreen(
                         HomeTopBanner(
                             userFullName = gigWorker?.fullName,
                             profilePictureUrl = gigProvider?.profileImageUrl,
-                            locationName = null,
+                            locationName = "Malang",
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(SpaceMedium)
@@ -182,7 +182,7 @@ fun HomeScreen(
                         HomeTopBanner(
                             userFullName = gigProvider?.fullName,
                             profilePictureUrl = gigProvider?.profileImageUrl,
-                            locationName = null,
+                            locationName = "Malang",
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(SpaceMedium)
@@ -242,7 +242,11 @@ fun HomeScreen(
                                     .fillMaxWidth()
                                     .height(225.dp)
                             ) {
-                                navController.navigate(Screen.GigDetailScreen.withArgs(recommendedGigs[0].id))
+                                navController.navigate(
+                                    Screen.GigDetailScreen.withArgs(
+                                        recommendedGigs[0].id
+                                    )
+                                )
                             }
                         else
                             RecommendedGigCardShimmer(
@@ -322,7 +326,12 @@ fun HomeScreen(
                 ) {
                     FloatingActionButton(
                         onClick = {
-                            navController.navigate(Screen.CreateGigScreen.route)
+                            navController.navigate(
+                                Screen.CreateGigScreen.withArgs(
+                                    currentLoc.latitude.toString(),
+                                    currentLoc.longitude.toString()
+                                )
+                            )
                         },
                         modifier = Modifier
                             .align(Alignment.BottomEnd)

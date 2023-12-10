@@ -52,6 +52,7 @@ class GigRepository(
 
             val response = file?.let {
                 gigApi.createGig(
+                    token = "Bearer $token",
                     postData = MultipartBody.Part
                         .createFormData(
                             name = Constants.CREATE_GIG_PART_DATA,

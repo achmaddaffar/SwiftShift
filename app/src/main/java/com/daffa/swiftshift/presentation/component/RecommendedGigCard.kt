@@ -85,7 +85,7 @@ fun RecommendedGigCard(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "20h ago",
+                        text = stringResource(R.string.just_now),
                         style = Type.body5Regular(),
                         color = Color.White
                     )
@@ -153,7 +153,7 @@ fun RecommendedGigCard(
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = "LOKASI",
+                                text = "Malang",
                                 style = Type.body5Bold(),
                                 color = Color.White
                             )

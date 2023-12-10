@@ -16,7 +16,8 @@ interface GigApi {
 
     @Multipart
     @POST("/api/gig/create")
-    fun createGig(
+    suspend fun createGig(
+        @Header("Authorization") token: String,
         @Part postData: MultipartBody.Part,
         @Part postImage: MultipartBody.Part? = null,
     ): BasicApiResponse<Unit>

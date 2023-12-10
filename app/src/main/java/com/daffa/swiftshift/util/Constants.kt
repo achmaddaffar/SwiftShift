@@ -10,6 +10,7 @@ object Constants {
     const val SEARCH_DELAY_DURATION = 1000L
     const val SPLASH_SCREEN_DURATION = 250L
     const val MIN_PASSWORD_LENGTH = 3
+    const val MAX_GIG_DESCRIPTION_LENGTH = 2000
 
     const val KEY_JWT_TOKEN = "jwt_token"
     const val KEY_ROLE = "role"

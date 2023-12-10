@@ -26,6 +26,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -33,7 +34,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,6 +47,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.daffa.swiftshift.R
@@ -77,6 +82,22 @@ fun GigDetailScreen(
     val scope = rememberCoroutineScope()
     val state by viewModel.state
     val gig = state.data
+
+    var showSuccessDialog by remember {
+        mutableStateOf(false)
+    }
+
+    if (showSuccessDialog)
+        Dialog(
+            onDismissRequest = {
+                showSuccessDialog = false
+            }
+        ) {
+            Text(
+                text = "You have successfully applied",
+                style = Type.heading4Medium()
+            )
+        }
 
     ObserveAsEvents(flow = viewModel.eventFlow) { event ->
         when (event) {
@@ -275,10 +296,10 @@ fun GigDetailScreen(
                     )
                     gig?.let {
                         LinearProgressIndicator(
+                            progress = { it.currentApplier.toFloat() / it.maxApplier.toFloat() },
                             modifier = Modifier.fillMaxWidth(),
-                            progress = it.currentApplier.toFloat() / it.maxApplier.toFloat(),
                             color = Primary700,
-                            trackColor = Slate300
+                            trackColor = Slate300,
                         )
                     } ?: kotlin.run {
                         Box(
@@ -346,7 +367,7 @@ fun GigDetailScreen(
                     }
                 )
             }
-            Divider(color = HintGray)
+            HorizontalDivider(color = HintGray)
             Spacer(modifier = Modifier.height(SpaceMedium))
             HorizontalPager(
                 state = pagerState,
@@ -425,7 +446,7 @@ fun GigDetailScreen(
     ) {
         Button(
             onClick = {
-                Toast.makeText(context, "Apply", Toast.LENGTH_SHORT).show()
+                showSuccessDialog = true
             },
             modifier = Modifier
                 .fillMaxWidth()
